@@ -42,7 +42,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     ColorSwitcherComponent,
     FooterComponent,
     HeadingComponent,
-    ApplicationMenuComponent,
+    ApplicationMenuComponent
   ]
 })
 export class LayoutContainersModule { }

@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-sidebar',
-  styleUrls: ['./sidebar.component.css'],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent implements OnInit, OnDestroy {

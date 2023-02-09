@@ -1,3 +1,4 @@
+
 import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 

@@ -16,7 +16,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
   adminRoot = environment.adminRoot;
   sidebar: ISidebar;
   subscription: Subscription;
-  displayName :string;
+  displayName = 'Sarah Cortney';
   languages: Language[];
   currentLanguage: string;
   isSingleLang;
@@ -72,10 +72,10 @@ export class TopnavComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    if (localStorage.getItem('user')) {
-      let user = JSON.parse(localStorage.getItem('user'))
-      // console.log(user.username);
-      this.displayName = user.username
+    if (await this.authService.getUser()) {
+      this.displayName = await this.authService.getUser().then((user) => {
+        return user.displayName;
+      });
     }
     this.subscription = this.sidebarService.getSidebar().subscribe(
       (res) => {
@@ -111,7 +111,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
       containerClassnames,
       this.sidebar.selectedMenuHasSubItems
     );
-  };
+  }
 
   mobileMenuButtonClick = (
     event: { stopPropagation: () => void },
@@ -121,11 +121,12 @@ export class TopnavComponent implements OnInit, OnDestroy {
       event.stopPropagation();
     }
     this.sidebarService.clickOnMobileMenu(containerClassnames);
-  };
+  }
 
   onSignOut(): void {
-    this.authService.signOut();
-    this.router.navigate(['/user/login']);
+    this.authService.signOut().subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   searchKeyUp(event: KeyboardEvent): void {

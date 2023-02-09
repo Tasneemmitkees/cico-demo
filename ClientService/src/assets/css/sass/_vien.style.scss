@@ -53,8 +53,6 @@ Table of Contents
 /* 00.Variables and Imports */
 
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
-@import "../sass/dataTable.scss";
-@import "../sass/_materialTable.scss";
 $main-menu-item-height: 110px;
 $main-menu-width: 120px;
 $main-menu-width-lg: 110px;
@@ -157,7 +155,7 @@ body.show {
 }
 
 .fixed-background {
-    background: url("../../img/login/balloon-lg.png") no-repeat center center fixed;
+    background: url("../../img/login/balloon-lg.jpg") no-repeat center center fixed;
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -3182,7 +3180,6 @@ body.default-transition main {
     padding-right: 30px;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 13px;
     &:before {
         right: 3em;
         content: "\2191";
@@ -3237,15 +3234,15 @@ datatable-row-wrapper:last-of-type .datatable-body-row {
         margin-right: -15px;
         padding-right: 15px;
     }
-    // .ngx-datatable .datatable-body .datatable-row-wrapper {
-    //     background: $foreground-color;
-    //     border-radius: $border-radius-rounded;
-    //     border: initial;
-    //     width: 100% !important;
-    //     margin-top: 0.5rem;
-    //     margin-bottom: 0.5rem;
-    //     @include depth(1);
-    // }
+    .ngx-datatable .datatable-body .datatable-row-wrapper {
+        background: $foreground-color;
+        border-radius: $border-radius-rounded;
+        border: initial;
+        width: 100% !important;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        @include depth(1);
+    }
     .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {
         padding-top: 1.25rem;
         padding-bottom: 2.5rem;
@@ -3257,9 +3254,9 @@ datatable-row-wrapper:last-of-type .datatable-body-row {
     .ngx-datatable .datatable-body .datatable-scroll {
         width: 100% !important;
     }
-    //     .ngx-datatable .datatable-body .datatable-row-wrapper {
-    //         width: 100% !important;
-    //     }
+    .ngx-datatable .datatable-body .datatable-row-wrapper {
+        width: 100% !important;
+    }
     datatable-selection {
         width: 100% !important;
     }
@@ -3296,30 +3293,6 @@ datatable-row-wrapper:last-of-type .datatable-body-row {
         .detail-content {
             padding-left: 35px;
             padding-right: 35px;
-        }
-    }
-}
-
-.single-selection,
-.multi-selection,
-.multi-click-selection {
-    .datatable-body-row {
-        cursor: pointer;
-        &.active,
-        &.active .datatable-row-group,
-        &.active .datatable-row-group {
-            background-color: $theme-color-1;
-        }
-        // &.active:hover,
-        // &.active:hover .datatable-row-group,
-        // &.active:hover .datatable-row-group datatable-body-cell {
-        //     background-color: $theme-color-1;
-        //     // color: black;
-        // }
-        &.active:focus,
-        &.active:focus .datatable-row-group,
-        &.active:focus .datatable-row-group datatable-body-cell {
-            background-color: $theme-color-1;
         }
     }
 }
@@ -4445,7 +4418,7 @@ div.error:not(.simple-notification) {
 }
 
 .ng-select .ng-select-container {
-    border-radius: $border-radius-rounded !important;
+    border-radius: $border-radius !important;
     border: 1px solid $separator-color;
     font-size: 0.8rem;
     padding: 0.15rem;
@@ -5972,18 +5945,18 @@ rating span {
     display: flex;
     flex-direction: row;
     @include depth(1);
-    // .image-side {
-    //     width: 60%;
-    //     background: url("../../img/login/balloon.jpg") no-repeat center top;
-    //     background-size: cover;
-    //     padding: 80px 40px;
-    //     .h3 {
-    //         line-height: 0.8rem;
-    //     }
-    // }
-    .form-side {
+    .image-side {
         width: 40%;
+        background: url("../../img/login/balloon.jpg") no-repeat center top;
+        background-size: cover;
         padding: 80px 40px;
+        .h3 {
+            line-height: 0.8rem;
+        }
+    }
+    .form-side {
+        width: 60%;
+        padding: 80px;
     }
     @include respond-below(md) {
         flex-direction: column;
@@ -6531,26 +6504,19 @@ i.large-icon {
 }
 
 
-/* 37.Tables detail */
+/* 37.Tables */
 
 .table {
     color: $primary-color;
-    cursor: pointer;
 }
 
-// .table th,
-.table tbody tr {
-    cursor: pointer;
-}
-
-.selected {
-    border-left: 2px solid $theme-color-1;
+.table th,
+.table td {
+    border-color: $separator-color-light !important;
 }
 
 .table .thead-light th {
-    background-color: $theme-color-1 !important;
-    color: #000000;
-    font-size: small;
+    background-color: $separator-color-light !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -8393,11 +8359,12 @@ body {
 
 footer.page-footer {
     padding-top: 2.2rem;
-    // padding-bottom: 2.2rem;
+    padding-bottom: 2.2rem;
     border-top: 1px solid $separator-color;
     width: 100%;
-    // position: absolute;
+    position: absolute;
     bottom: 0;
+    width: 100%;
     height: 90px;
     @include respond-below(xs) {
         height: 60px;

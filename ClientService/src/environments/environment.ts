@@ -6,7 +6,6 @@ import { UserRole } from '../app/shared/auth.roles';
 
 export const environment = {
   production: false,
-  baseUrl:'http://localhost:2000/',
   buyUrl : 'https://1.envato.market/6NV1b',
   SCARF_ANALYTICS : false,
   adminRoot: '/app',
@@ -16,7 +15,6 @@ export const environment = {
   menuHiddenBreakpoint: 768,
   themeColorStorageKey: 'vien-themecolor',
   isMultiColorActive: true,
-  PORT:80,
   /*
   Color Options:
   'light.blueyale', 'light.blueolympic', 'light.bluenavy', 'light.greenmoss',

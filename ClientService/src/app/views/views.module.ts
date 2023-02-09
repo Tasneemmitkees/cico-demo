@@ -12,11 +12,9 @@ import { HeadroomModule } from '@ctrl/ngx-headroom';
 import { HomeComponent } from './home/home.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { AuthGuard } from '../shared/auth.guard';
-import { MatSliderModule } from '@angular/material/slider';
 @NgModule({
   declarations: [HomeComponent],
   imports: [
-    MatSliderModule,
     CommonModule,
     ViewRoutingModule,
     SharedModule,

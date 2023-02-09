@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component,  ViewChild, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-list-page-header',
   templateUrl: './list-page-header.component.html'
 })
-export class ListPageHeaderComponent{
-
+export class ListPageHeaderComponent {
   displayOptionsCollapsed = false;
 
   @Input() showOrderBy = true;
@@ -55,5 +54,4 @@ export class ListPageHeaderComponent{
   onSearchKeyUp($event): void {
     this.searchKeyUp.emit($event);
   }
-
 }

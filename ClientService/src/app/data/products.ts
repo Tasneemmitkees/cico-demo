@@ -1,24 +1,5 @@
-import { Attachement } from "./Customer";
+import { IProduct } from './api.service';
 
-export interface IProduct {
-  id: number;
-  title: string;
-  img: string;
-  category: string;
-  status: string;
-  statusColor: string;
-  description: string;
-  sales: number;
-  stock: number;
-  date: string;
-}
-export interface ProductCatalog {
-  productID: number;
-  productName:string;
-  productPrice:number;
-  image?: string;
-  attachment:Attachement;
-}
 const data: IProduct[] = [
   {
     id: 1,

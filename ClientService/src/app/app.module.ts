@@ -10,13 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { LayoutContainersModule } from './containers/layout/layout.containers.module';
-import {MaterialExampleModule} from '../material.module';
-import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   imports: [
-    MatNativeDateModule,
-    MaterialExampleModule,
     BrowserModule,
     ViewsModule,
     AppRoutingModule,
@@ -24,12 +20,11 @@ import {MatNativeDateModule} from '@angular/material/core';
     BrowserAnimationsModule,
     TranslateModule.forRoot(),
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase),
-
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [
     AppComponent
-   ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

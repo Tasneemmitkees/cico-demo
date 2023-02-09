@@ -8,7 +8,7 @@ export let environment: {
   defaultMenuType: string;
   subHiddenBreakpoint: number; defaultRole: UserRole;
   production: boolean; buyUrl: string; defaultDirection: string;
-  themeColorStorageKey: string; baseUrl: string;
+  themeColorStorageKey: string;
   firebase: {
     storageBucket: string; apiKey: string; messagingSenderId: string; appId: string; projectId: string;
     measurementId: string; databaseURL: string; authDomain: string
@@ -21,7 +21,6 @@ export let environment: {
 };
 environment = {
   production: true,
-  baseUrl:'http://localhost:2000/',
   buyUrl: 'https://1.envato.market/6NV1b',
   SCARF_ANALYTICS: false,
   adminRoot: '/app',

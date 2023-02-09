@@ -9,7 +9,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 import { SmallLineChartComponent } from './small-line-chart/small-line-chart.component';
 import { CommonModule } from '@angular/common';
-import { ChartService } from './chart.service';
+// import { ChartService } from './chart.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { ChartService } from './chart.service';
   imports: [
     CommonModule
   ],
-  providers: [ChartService],
+  providers: [],
   exports: [
     AreaChartComponent,
     LineChartComponent,

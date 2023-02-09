@@ -1,15 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { from } from 'rxjs';
-// import * as jwt from "jsonwebtoken";
 
-
-import { getUserRole, setUserRole } from 'src/app/utils/util';
-import { environment } from 'src/environments/environment';
+import { getUserRole } from 'src/app/utils/util';
 
 export interface ISignInCredentials {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -26,55 +22,18 @@ export interface IPasswordReset {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  baseUrl = environment.baseUrl ;
-
-  constructor(private auth: AngularFireAuth, private http: HttpClient) {}
+  constructor(private auth: AngularFireAuth) {}
 
   // tslint:disable-next-line:typedef
   signIn(credentials: ISignInCredentials) {
-    console.log(credentials);
-
-    const httpOptions = {
-      params: { tenantId: 'T5' },
-
-      headers: new HttpHeaders({
-        // tenantId: 'T5',
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.post(this.baseUrl+'user/login', credentials, httpOptions);
-    // .then(({ user }) => {
-    //   console.log(user);
-
-    //   return user;
-    // }).catch((error) => {console.log(error)}
-    // );
-  }
-  verifyToken(body: any) {
-    console.log(body);
-    // const decoded = jwt.verify(body, "401b09eab3c013d4ca54201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed");
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     // tenantId: 'T5',
-    //     'Content-Type': 'application/json',
-    //   }),
-    // };
-
-    // return this.http.post('http://34.76.184.138:2001/verifytoken', body, httpOptions)
-    return "decoded"
-    // .then(({ user }) => {
-    //   console.log(user);
-
-    //   return user;
-    // }).catch((error) => {console.log(error)}
-    // );
+    return this.auth
+      .signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(({ user }) => {
+        return user;
+      });
   }
 
-  signOut = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-  };
+  signOut = () => from(this.auth.signOut());
 
   // tslint:disable-next-line:typedef
   register(credentials: ICreateCredentials) {
@@ -107,13 +66,7 @@ export class AuthService {
 
   // tslint:disable-next-line:typedef
   async getUser() {
-    const u = localStorage.getItem("token");
-    // console.log(u);
-    return { token: u, role: getUserRole() };
-  }
-  async setUser(lang) {
-    // const u = localStorage.getItem("token");
-    // console.log(u);
-    return setUserRole(lang)
+    const u = await this.auth.currentUser;
+    return { ...u, role: getUserRole() };
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import en from '../../lang/en-US.json';
-//import es from '../../lang/es-ES.json';
+import es from '../../lang/es-ES.json';
 import { Router } from '@angular/router';
 import { getThemeLang, setThemeLang } from 'src/app/utils/util';
 
@@ -12,18 +12,18 @@ const languageKey = '__lang';
   providedIn: 'root',
 })
 export class LangService {
-  isSingleLang = true;
+  isSingleLang = false;
   renderer: Renderer2;
   defaultLanguage = getThemeLang();
   supportedLanguages: Language[] = [
     { code: 'en-US', direction: 'ltr', label: 'English', shorthand: 'en' },
-    //{ code: 'es-ES', direction: 'ltr', label: 'Español', shorthand: 'es' },
-   /* {
+    { code: 'es-ES', direction: 'ltr', label: 'Español', shorthand: 'es' },
+    {
       code: 'en-EN',
       direction: 'rtl',
       label: 'English - RTL',
       shorthand: 'enrtl',
-    },*/
+    },
   ];
 
   constructor(
@@ -36,8 +36,8 @@ export class LangService {
 
   init(): void {
     this.translate.setTranslation('en-US', en);
-   // this.translate.setTranslation('es-ES', es);
-   // this.translate.setTranslation('en-EN', en);
+    this.translate.setTranslation('es-ES', es);
+    this.translate.setTranslation('en-EN', en);
     this.translate.setDefaultLang(this.defaultLanguage);
     if (this.isSingleLang) {
       this.translate.use(this.defaultLanguage);

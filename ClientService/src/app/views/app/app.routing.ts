@@ -1,35 +1,43 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import {EinvoicesComponent} from './einvoices/einvoices.component';
-import {HrComponent} from './hr/hr.component';
+import { BlankPageComponent } from './blank-page/blank-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AppComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'customerportal/dashboard' },
+      { path: '', pathMatch: 'full', redirectTo: 'dashboards' },
       {
-        path: 'customerportal',
+        path: 'dashboards',
         loadChildren: () =>
-          import('./customer-portal/customer-portal.module').then(
-            (m) => m.CustomerPortalModule
+          import('./dashboards/dashboards.module').then(
+            (m) => m.DashboardsModule
           ),
       },
-      { path: 'einvoices', component: EinvoicesComponent },
-      { path: 'suppliernetwork',loadChildren:()=>import('./supplier-network/supplier-network.module').
-      then((m)=>m.SuppliernetworkCModule) },
-      { path: 'supplierportal',  loadChildren: () =>
-      import('./supplier-portal/supplier-portal.module').then(
-        (m) => m.SupplierPortalModule
-      ),},
-      { path: 'hr', component: HrComponent },
-      { path: 'configuration',
-       loadChildren:()=>
-      import('./configuration/configuration.module').then(
-        (m)=>m.ConfigurationModule
-      )},
+      {
+        path: 'applications',
+        loadChildren: () =>
+          import('./applications/applications.module').then(
+            (m) => m.ApplicationsModule
+          ),
+      },
+      {
+        path: 'pages',
+        loadChildren: () =>
+          import('./pages/pages.module').then((m) => m.PagesModule),
+      },
+      {
+        path: 'ui',
+        loadChildren: () => import('./ui/ui.module').then((m) => m.UiModule),
+      },
+      {
+        path: 'menu',
+        loadChildren: () =>
+          import('./menu/menu.module').then((m) => m.MenuModule),
+      },
+      { path: 'blank-page', component: BlankPageComponent },
     ],
   },
 ];

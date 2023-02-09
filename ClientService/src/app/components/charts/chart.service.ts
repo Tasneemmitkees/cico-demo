@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Colors } from 'src/app/constants/colors.service';
+import { Colors } from '../../constants/colors.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChartService {
@@ -189,9 +189,9 @@ export class ChartService {
           },
           ticks: {
             beginAtZero: true,
-            // stepSize: 5,
-            // min: 50,
-            // max: 70,
+            stepSize: 5,
+            min: 50,
+            max: 70,
             padding: 20
           }
         }
@@ -282,9 +282,9 @@ export class ChartService {
           },
           ticks: {
             beginAtZero: true,
-            // stepSize: 100,
-            // min: 300,
-            // max: 800,
+            stepSize: 100,
+            min: 300,
+            max: 800,
             padding: 20
           }
         }

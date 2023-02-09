@@ -1,63 +1,45 @@
 <div class="card auth-card">
-    <div class="position-relative image-side ">
-        <p class="white mb-0">
-            <br>If you are a member, please
-            <a routerLink="/user/login" class="white white-underline-link">login</a>.
-        </p>
-    </div>
-    <div class="form-side">
-        <h6 class="mb-4">Register</h6>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <label class="form-group has-float-label">
-            <input class="form-control" type="number" formControlName="id"/>
-            <span>ID</span>
-          </label>
-            <label class="form-group has-float-label">
-            <input class="form-control" type="text" formControlName="userName"/>
-            <span>User Name</span>
-          </label>
-            <label class="form-group has-float-label">
-            <input class="form-control" type="password" formControlName="password"/>
-            <span>{{ 'user.password' | translate }}</span>
-          </label>
-            <label class="form-group has-float-label">
-            <ng-select id="role" formControlName="role" (change)="onRoleOptionsSelected(registerForm.value.role)">
-              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
-              <ng-option value="customer">Customer</ng-option>
-              <ng-option value="supplier">Supplier</ng-option>
-            </ng-select>
-            <span>Role</span>
-          </label>
-            <div class="form-group" *ngIf="isCustomerShown">
-                <label class="form-group has-float-label">
-            <ng-select formControlName="customerType" (change)="onTypeOptionsSelected(registerForm.value.customerType)">
-              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
-              <ng-option value="individual">Individual</ng-option>
-              <ng-option value="company">Company</ng-option>
-            </ng-select>
-            <span>Customer Type</span>
-          </label>
-            </div>
-            <div class="form-group" *ngIf="isCustomerShown">
-                <label class="form-group has-float-label">
-            <ng-select formControlName="businessPartnerID" (change)="onCustomerOptionsSelected(registerForm.value.businessPartnerID)">
-              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
-              <ng-option *ngFor="let customer of businessPartnerID; let i = index" [value]="customer.InternalID">
-                {{customer.PersonGivenName}} {{customer.PersonFamilyName}} {{customer.BusinessPartnerFormattedName}}
-              </ng-option>
-            </ng-select>
-            <span>Business Partner ID</span>
-          </label>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
-                <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
-                    {{ 'user.register-button' | translate | uppercase }}
-                </app-state-button>
+  <div class="position-relative image-side ">
+    <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+    <p class="white mb-0">
+      Please use the form to register.
+      <br>If you are a member, please
+      <a routerLink="/user/login" class="white white-underline-link">login</a>.
+    </p>
+  </div>
+  <div class="form-side">
+    <a class="c-pointer">
+      <span class="logo-single"></span>
+    </a>
+    <h6 class="mb-4">Register</h6>
 
-            </div>
-        </form>
+    <form #registerForm="ngForm" novalidate  (ngSubmit)="onSubmit()">
+      <label class="form-group has-float-label">
+        <input class="form-control" required ngModel #displayName="ngModel" name="displayName"/>
+        <span>{{ 'user.fullname' | translate }}</span>
+        <div *ngIf="!displayName.valid && registerForm.submitted" class="invalid-tooltip">Name is required!</div>
+      </label>
+      <label class="form-group has-float-label">
+        <input class="form-control" required email ngModel #email="ngModel" name="email"/>
+        <span>{{ 'user.email' | translate }}</span>
+        <div *ngIf="!email.valid && registerForm.submitted" class="invalid-tooltip">Email is required!</div>
+        <div *ngIf="email?.errors?.email && registerForm.submitted" class="invalid-tooltip">Email must be a valid address!</div>
+      </label>
+      <label class="form-group has-float-label">
+        <input class="form-control" type="password" placeholder="" required ngModel #password="ngModel" name="password"/>
+        <span>{{ 'user.password' | translate }}</span>
+        <div *ngIf="!password.valid && registerForm.submitted" class="invalid-tooltip">Password is required!</div>
+      </label>
+      <div class="d-flex justify-content-between align-items-center">
+        <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
+        <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
+          [isDisabled]="buttonDisabled" click="onLoginClick()">
+          {{ 'user.register-button' | translate | uppercase }}
+        </app-state-button>
 
-    </div>
+      </div>
+    </form >
+
+  </div>
 </div>
 <simple-notifications></simple-notifications>

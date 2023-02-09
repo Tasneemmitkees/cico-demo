@@ -37,11 +37,11 @@ export const lineChartData = {
 };
 
 export const areaChartData = {
-  labels: [],
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: 'Invoices Volume',
-      data: [],
+      label: '',
+      data: [54, 63, 60, 65, 60, 68, 60],
       borderColor: Colors.getColors().themeColor1,
       pointBackgroundColor: Colors.getColors().foregroundColor,
       pointBorderColor: Colors.getColors().themeColor1,
@@ -116,29 +116,24 @@ export const scatterChartData = {
 };
 
 export const barChartData = {
-  labels: [],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
   datasets: [
     {
-      label: 'Sales Order Volume',
+      label: 'Cakes',
       borderColor: Colors.getColors().themeColor1,
       backgroundColor: Colors.getColors().themeColor1_10,
-      data: [],
+      data: [456, 479, 324, 569, 702, 600],
+      borderWidth: 2
+    },
+    {
+      label: 'Desserts',
+      borderColor: Colors.getColors().themeColor2,
+      backgroundColor: Colors.getColors().themeColor2_10,
+      data: [364, 504, 605, 400, 345, 320],
       borderWidth: 2
     }
   ]
 };
-// export const barChartData = {
-//   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-//   datasets: [
-//     {
-//       label: 'Sales Order Volume',
-//       borderColor: Colors.getColors().themeColor1,
-//       backgroundColor: Colors.getColors().themeColor1_10,
-//       data: [456, 479, 324, 890, 702, 600],
-//       borderWidth: 2
-//     }
-//   ]
-// };
 
 export const radarChartData = {
   datasets: [
@@ -162,9 +157,8 @@ export const radarChartData = {
   labels: ['Cakes', 'Desserts', 'Cupcakes']
 };
 
-export const doughnutChartData = {
-// export const pieChartData = {
-  labels: ['Open', 'Due', 'Closed'],
+export const pieChartData = {
+  labels: ['Cakes', 'Cupcakes', 'Desserts'],
   datasets: [
     {
       label: '',
@@ -180,8 +174,8 @@ export const doughnutChartData = {
   ]
 };
 
-export const pieChartData = {
-  labels: ['TISSOT CLASSIC DREAM', 'TISSOT PRC 200 CHRONOGRAPH', 'TISSOT SEASTAR 1000 QUARTZ CHRONOGRAPH'],
+export const doughnutChartData = {
+  labels: ['Cakes', 'Cupcakes', 'Desserts'],
   datasets: [
     {
       label: '',
@@ -192,7 +186,7 @@ export const pieChartData = {
         Colors.getColors().themeColor1_10
       ],
       borderWidth: 2,
-      data: [4, 10, 7]
+      data: [15, 25, 20]
     }
   ]
 };

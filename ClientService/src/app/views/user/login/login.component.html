@@ -1,77 +1,43 @@
-<!-- <div class="card" style="width: 60%; height: 100px;"> -->
-<!-- <div class="position-relative image-side ">
-    <p class="white mb-0">
-      <br>If you are not a member, please
-      <a routerLink="/user/register" class="white white-underline-link">register</a>.
-    </p>
-  </div> -->
-<!-- <div class="card" style="width: 60%; height: 100px;"> -->
-<!-- <a class="c-pointer">
-      <span class="logo-single"></span>
-    </a> -->
-<!-- <h6 class="mb-4">Login</h6> -->
+<div class="card">
+    <div class=" position-relative card-body ">
+        <h6 class="mb-4">Check-in / Check-Out Form </h6>
 
-<!-- <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-      <div class="col-md-4">
-        <label class="form-group has-float-label">
-        <input class="form-control " required username ngModel #username="ngModel" name="username" [(ngModel)]="usernameModel" />
-        <span>{{ 'user.username' | translate }}</span>
-        <div *ngIf="!username.valid && loginForm.submitted" class="invalid-tooltip">Email is required!</div>
-      </label>
-      </div>
-        <label class="form-group has-float-label">
-        <input class="form-control col-md-4" type="password" placeholder="" required ngModel #password="ngModel" name="password"
-          [(ngModel)]="passwordModel" />
-        <span>{{ 'user.password' | translate }}</span>
-        <div *ngIf="!password.valid && loginForm.submitted" class="invalid-tooltip">Password is required!</div>
-      </label>
-        <div class="d-flex justify-content-between align-items-center col-md-4">
-            <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
-            <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
-                {{ 'user.login-button' | translate | uppercase }}
-            </app-state-button>
-        </div>
-    </form> -->
-
-<!-- </div> -->
-<!-- </div> -->
-
-<!-- <div class="card-columns"> -->
-<div class="card" style="width: 400px;height: 570px; background-color :#d7d7d7;">
-    <div class="card-body">
-        <h6 class="mb-4">Login</h6>
         <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-            <div class="form-group col-12">
-                <label class="has-float-label">
-                <input class="form-control " required username ngModel #username="ngModel" name="username" [(ngModel)]="usernameModel" />
-                <span>{{ 'user.username' | translate }}</span>
-                <div *ngIf="!username.valid && loginForm.submitted" class="invalid-tooltip">Email is required!</div>
-              </label>
-            </div>
-            <div class="form-group col-12">
-                <label class=" has-float-label">
-                <input class="form-control " type="password" placeholder="" required ngModel #password="ngModel" name="password"
-                  [(ngModel)]="passwordModel" />
-                <span>{{ 'user.password' | translate }}</span>
-                <div *ngIf="!password.valid && loginForm.submitted" class="invalid-tooltip">Password is required!</div>
-              </label>
-            </div>
-            <div class="d-flex justify-content-between align-items-center" style="padding-top:100px ;">
-                <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
-                <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
-                    {{ 'user.login-button' | translate | uppercase }}
-                </app-state-button>
-            </div>
-            <div class="form-group col-12">
-                <div class="position-relative ">
-                    <p class="black mb-0">
-                        <br>If you are not a member, please
-                        <a routerLink="/user/register">register</a>.
-                    </p>
+            <label class="form-group has-float-label">
+        <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID"  />
+        <span>Employee ID</span>
+        <div *ngIf="!employeeID.valid && loginForm.submitted" class="invalid-tooltip">Employee ID is required!</div>
+      </label>
+            <label class="form-group has-float-label">
+        <input class="form-control" type="date" placeholder="" required ngModel #date="ngModel" name="date" />
+        <span>Date</span>
+        <div *ngIf="!date.valid && loginForm.submitted" class="invalid-tooltip">Date is required!</div>
+      </label>
+            <label class="form-group has-float-label">
+        <input class="form-control" type="time" placeholder="" required ngModel #time="ngModel" name="time" />
+        <span>Time</span>
+        <div *ngIf="!time.valid && loginForm.submitted" class="invalid-tooltip">Time is required!</div>
+      </label>
+            <div class="mb-4 form-row p-4">
+                <div class="form-group col-md-6 custom-control custom-radio">
+                    <input type="radio" id="checkIn" value="checkIn" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <label class="custom-control-label" for="checkIn">Check in</label>
+                </div>
+                <div class="form-group col-md-6 custom-control custom-radio">
+                    <input type="radio" id="checkOut" value="checkOut" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <label class="custom-control-label" for="checkOut">Check Out</label>
                 </div>
             </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a> -->
+                <!-- <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
+                    {{ 'user.login-button' | translate | uppercase }}
+                </app-state-button> -->
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
         </form>
+
     </div>
 </div>
-<!-- </div> -->
 <simple-notifications></simple-notifications>

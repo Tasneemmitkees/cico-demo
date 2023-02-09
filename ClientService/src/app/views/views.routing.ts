@@ -13,27 +13,26 @@ const adminRoot = environment.adminRoot.substr(1); // path cannot start with a s
 let routes: Routes = [
   {
     path: '',
-    // component: HomeComponent,
+    component: HomeComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     pathMatch: 'full',
     redirectTo: adminRoot
-
-  },
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   redirectTo: adminRoot
-  // },
-  {
-    path: adminRoot,
-    loadChildren: () => import('./app/app.module').then((m) => m.AppModule),
-    data: { roles: [UserRole.Admin, UserRole.Editor, , UserRole.Editor1] },
-    canActivate: [AuthGuard],
-    // canActivateChild: [AuthGuard],
   },
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
+  {
+    path: 'app',
+    loadChildren: () => import('./app/app.module').then((m) => m.AppModule),
+    data: { roles: [UserRole.Admin, UserRole.Editor] },
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+  },
+
   { path: 'error', component: ErrorComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', redirectTo: '/error' },
