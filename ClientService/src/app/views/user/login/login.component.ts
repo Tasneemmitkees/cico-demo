@@ -4,6 +4,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import {LoginService} from './login.service';
 
 @Component({
@@ -16,12 +17,15 @@ export class LoginComponent {
   buttonDisabled = false;
   buttonState = '';
 
-  constructor(private demoservice: LoginService, private notifications: NotificationsService, private router: Router) { }
+  constructor(private demoservice: LoginService, private notifications: NotificationsService, private router: Router,private translate: TranslateService) { }
 
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log("demo value",this.loginForm.value);
+      this.notifications.create(this.translate.instant('alert.success'),
+      this.translate.instant("Send Sucessfully"),
+      NotificationType.Success, { timeOut: 3000, showProgressBar: true });
       // call func
 
       let event:any={
