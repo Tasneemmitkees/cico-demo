@@ -4,6 +4,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { environment } from 'src/environments/environment';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,23 @@ export class LoginComponent {
   buttonDisabled = false;
   buttonState = '';
 
-  constructor(private authService: AuthService, private notifications: NotificationsService, private router: Router) { }
+  constructor(private demoservice: LoginService, private notifications: NotificationsService, private router: Router) { }
 
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log("demo value",this.loginForm.value);
+      // call func
+
+      let event:any={
+        employeeID:this.loginForm.value.employeeID,
+        dateTime:`${this.loginForm.value.date}T${this.loginForm.value.time}:21+02:00`,
+        status:this.loginForm.value.radio,
+      }
+    this.demoservice.postEvent(event).subscribe((i)=>{
+      console.log(i)
+    })
+
     }
   }
 }
