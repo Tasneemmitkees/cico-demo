@@ -1,0 +1,45 @@
+<div class="card">
+    <div class=" position-relative card-body ">
+        <h6 class="mb-4">Check-in / Check-Out Form </h6>
+
+        <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+            <label class="form-group has-float-label">
+        <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID" [(ngModel)]="employeeID" />
+        <span>Employee ID</span>
+        <div *ngIf="!employeeID.valid && loginForm.submitted" class="invalid-tooltip">Employee ID is required!</div>
+      </label>
+            <label class="form-group has-float-label">
+        <input class="form-control" type="date" placeholder="" required ngModel #date="ngModel" name="date"
+          [(ngModel)]="date" />
+        <span>Date</span>
+        <div *ngIf="!date.valid && loginForm.submitted" class="invalid-tooltip">Date is required!</div>
+      </label>
+            <label class="form-group has-float-label">
+        <input class="form-control" type="time" placeholder="" required ngModel #time="ngModel" name="time"
+          [(ngModel)]="time" />
+        <span>Time</span>
+        <div *ngIf="!time.valid && loginForm.submitted" class="invalid-tooltip">Time is required!</div>
+      </label>
+            <div class="mb-4 form-row p-4">
+                <div class="form-group col-md-6 custom-control custom-radio">
+                    <input type="radio" id="checkIn" value="checkIn" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <label class="custom-control-label" for="checkIn">Check in</label>
+                </div>
+                <div class="form-group col-md-6 custom-control custom-radio">
+                    <input type="radio" id="checkOut" value="checkOut" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <label class="custom-control-label" for="checkOut">Check Out</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a> -->
+                <!-- <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
+                    {{ 'user.login-button' | translate | uppercase }}
+                </app-state-button> -->
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<simple-notifications></simple-notifications>

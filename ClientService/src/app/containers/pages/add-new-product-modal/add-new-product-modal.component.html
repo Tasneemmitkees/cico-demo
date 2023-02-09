@@ -1,0 +1,48 @@
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{'pages.add-new-modal-title' | translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <label>{{ 'pages.product-name' | translate }}</label>
+            <input type="email" class="form-control" placeholder="">
+        </div>
+        <div class="mt-4">
+            <label>{{ 'pages.category' | translate }}</label>
+            <label class="w-100">
+                <ng-select appearance="outline" [searchable]="false">
+                    <ng-option *ngFor="let item of categories" [value]="item.value">{{item.label}}
+                    </ng-option>
+                </ng-select>
+            </label>
+        </div>
+        <div class="mt-4">
+            <label>{{ 'pages.description' | translate }}</label>
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+        <div class="tooltip-label-right">
+            <div class="error-l-100 position-relative form-group">
+                <label>Label Right</label>
+                <input name="input1" type="text" class="form-control">
+                <div class="invalid-tooltip">Label Right!</div>
+            </div>
+        </div>
+        <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate class="tooltip-label-right">
+            <div class="form-group">
+                <label>{{ 'forms.name' | translate }}</label>
+                <input type="text" class="form-control" name="name" ngModel required #name="ngModel" minlength="2" pattern="^[A-Za-z]+$">
+                <small>Only letters and at least 2 characters</small>
+                <div *ngIf="name?.errors?.required && form.submitted" class="invalid-tooltip">Name is required!</div>
+                <div *ngIf="name?.errors?.minlength && form.submitted" class="invalid-tooltip">Name must contain at least 2 characters!</div>
+                <div *ngIf="name?.errors?.pattern && form.submitted" class="invalid-tooltip">Name must only contain letters!</div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalRef.hide()">{{'pages.cancel' | translate }}</button>
+        <button type="submit" class="btn btn-primary float-right" (click)="onSubmit()">{{ 'pages.submit' | translate}}</button>
+    </div>
+</ng-template>
