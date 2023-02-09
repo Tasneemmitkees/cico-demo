@@ -1,0 +1,37 @@
+<div class="col-lg-12 col-md-12 ">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Attachment Table</h5>
+            <form [formGroup]="attachmentform">
+                <div>
+                    <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm" (click)="showAddNewModal()">Add Attachment</button>
+                </div>
+                <br>
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="attachmentIndividualFormArray">
+                        <tr *ngFor="let item of attachmentFormArray.controls let rowIndex=index;" [formGroupName]="rowIndex">
+                            <td><input type="text" class="form-control round" formControlName="title" [value]="item.title" /></td>
+                            <td> <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm iconsminds-download" title="Download" (click)="showPdf(rowIndex)"></button>
+                                <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="onDeleteRow(template)"></button>
+                                <ng-template #template>
+                                    <div class="modal-body text-center">
+                                        <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                        <button type="button" class="btn btn-outline-primary" (click)="confirm(rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                        <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                                    </div>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<app-add-individual-attachment (newAttachment)="addAttachment($event)" #addNewAttachmentModalRef [custObjectID]="custObjectID"></app-add-individual-attachment>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-4">
+        <form [formGroup]="addressCompanyForm">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Address Table</h5>
+                    <div>
+                        <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm" (click)="showAddNewModal()">Add Address</button>
+                    </div>
+                    <div>
+                        <div class="col-12 mb-4 p-3" formArrayName="addressCompanyFormArray">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr (click)="onSelect(item)" (click)="selectRow(item)" [ngClass]="{tr: selection.isSelected(item)}" [class.selected]="item === Selected" *ngFor="let item of addressData; let rowIndex=index;" [formGroupName]="rowIndex">
+                                        <td><input id="description" formControlName="description" class="form-control round" type="text" [value]="item.description" />
+                                        </td>
+                                        <td>
+                                            <input id="country" formControlName="country" class="form-control round" type="text" [value]="item.country" />
+                                            <td>
+                                                <input id="city" formControlName="city" class="form-control round" type="text" [value]="item.city" />
+                                            </td>
+                                            <td>
+                                                <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="onDeleteRow(template)"></button>
+                                                <ng-template #template>
+                                                    <div class="modal-body text-center">
+                                                        <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                                        <button type="button" class="btn btn-outline-primary" (click)="confirm(item.description,rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                                        <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                                                    </div>
+                                                </ng-template>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <app-company-address-detail [address]="Selected"></app-company-address-detail>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-add-new-address (newAddress)="addAdress($event)" #addNewAddressModalRef [custObjectID]="custObjectID"></app-add-new-address>

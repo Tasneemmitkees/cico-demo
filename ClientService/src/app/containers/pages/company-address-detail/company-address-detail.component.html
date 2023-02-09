@@ -1,0 +1,58 @@
+<form #detailForm="ngForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="address">
+        <input type="hidden" class="form-control round" id="country" [(ngModel)]="address.objectID" name="id" ngModel #id="ngModel">
+        <div class="form">
+            <h1 class="mb-4">Address Details</h1>
+            <button id="button-basic" type="submit" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block btn-sm">Save Address Detail</button>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="description">Description</label>
+                <input type="text" class="form-control round" name="description" [(ngModel)]="address.description" ngModel id="description" #description="ngModel">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="country">Country</label>
+                <ng-select id="country" [(ngModel)]="address.country" bindLabel="countryRegion" name="countryCode" ngModel #selectCountry="ngModel" (change)="onCountrySelected(selectCountry.value)">
+                    <!-- <ng-option selected>{{address.country}}</ng-option> -->
+                    <ng-option *ngFor="let country of countryList; let i = index" [value]="country.countryCode">
+                        {{country.countryRegion}}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="city">City</label>
+                <input type="text" class="form-control round" id="city" [(ngModel)]="address.city" ngModel name="city" #city="ngModel">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="addressLine1">Address Line1</label>
+                <input type="text" class="form-control round" id="addressLine1" [(ngModel)]="address.addressLine1" ngModel name="addressLine1" #addressLine1="ngModel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="addressLine2">Address Line2</label>
+                <input type="text" class="form-control round" id="addressLine2" [(ngModel)]="address.addressLine2" ngModel name="addressLine2" #addressLine1="ngModel">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="street">Street</label>
+                <input type="text" class="form-control round" id="street" [(ngModel)]="address.street" ngModel name="street" #street="ngModel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="buildingNumber">Building Number</label>
+                <input type="text" class="form-control round" id="buildingNumber" [(ngModel)]="address.buildingNumber" ngModel name="buildingNumber" #buildingNumber="ngModel">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="postalCode">Postal Code</label>
+                <input type="number" class="form-control round" id="postalCode" [(ngModel)]="address.postalCode" ngModel name="postalCode" #postalCode="ngModel">
+                <!-- <div *ngIf="addressCompanyForm.get('addressDetailCompanyForm.postalCode').errors?.required">
+              max
+          </div> -->
+            </div>
+        </div>
+    </div>
+</form>

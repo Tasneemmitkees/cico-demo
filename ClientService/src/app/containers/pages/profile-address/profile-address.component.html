@@ -1,0 +1,100 @@
+<div class="col-lg-12 col-md-12 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Address Table</h5>
+            <form [formGroup]="addressform">
+                <div>
+                    <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm" (click)="showAddNewModal()">Add Address</button>
+                </div>
+                <div formArrayName="addressIndividualFormArray" class="col-12 mb-4  table-responsive p-3">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Address Description</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">City</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)="onSelect(item)" [class.selected]="item === Selected" *ngFor="let item of addressData let rowIndex=index;" [formGroupName]="rowIndex">
+                                <td><input class="form-control round" type="text" formControlName="addressDesc" [value]="item.addressDesc" /></td>
+                                <td><input class="form-control round" type="text" formControlName="country" [value]="item.country" /></td>
+                                <td><input class="form-control round" type="text" formControlName="city" [value]="item.city" /></td>
+                                <td><button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="onDeleteRow(template)"></button>
+                                    <ng-template #template>
+                                        <div class="modal-body text-center">
+                                            <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                            <button type="button" class="btn btn-outline-primary" (click)="confirm(item.addressDesc,rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                            <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form #detailForm="ngForm" (ngSubmit)="onSubmit()">
+                    <div *ngIf="Selected">
+                        <input type="hidden" class="form-control round" id="country" [(ngModel)]="Selected.objectID" name="id" ngModel #id="ngModel">
+                        <div class="form">
+                            <h1 class="mb-4">Address Details</h1>
+                            <button id="button-basic" type="submit" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block btn-sm">Save Address Detail</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control round" name="description" [(ngModel)]="Selected.description" ngModel id="description" #description="ngModel" disabled="edit">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="country">Country</label>
+                                <ng-select id="country" [(ngModel)]="Selected.country" bindLabel="countryRegion" name="countryCode" ngModel #selectCountry="ngModel" (change)="onCountrySelected(selectCountry.value)">
+                                    <!-- <ng-option selected>{{address.country}}</ng-option> -->
+                                    <ng-option *ngFor="let country of countryList; let i = index" [value]="country.countryCode">
+                                        {{country.countryRegion}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control round" id="city" [(ngModel)]="Selected.city" ngModel name="city" #city="ngModel">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="addressLine1">Address Line1</label>
+                                <input type="text" class="form-control round" id="addressLine1" [(ngModel)]="Selected.addressLine1" ngModel name="addressLine1" #addressLine1="ngModel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="addressLine2">Address Line2</label>
+                                <input type="text" class="form-control round" id="addressLine2" [(ngModel)]="Selected.addressLine2" ngModel name="addressLine2" #addressLine1="ngModel">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="street">Street</label>
+                                <input type="text" class="form-control round" id="street" [(ngModel)]="Selected.street" ngModel name="street" #street="ngModel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="buildingNumber">Building Number</label>
+                                <input type="text" class="form-control round" id="buildingNumber" [(ngModel)]="Selected.buildingNumber" ngModel name="buildingNumber" #buildingNumber="ngModel">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="postalCode">Postal Code</label>
+                                <input type="number" class="form-control round" id="postalCode" [(ngModel)]="Selected.postalCode" ngModel name="postalCode" #postalCode="ngModel">
+                                <!-- <div *ngIf="addressCompanyForm.get('addressDetailCompanyForm.postalCode').errors?.required">
+                            max
+                        </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </form>
+        </div>
+    </div>
+</div>
+<app-add-individual-address (newAddress)="addAdress($event)" #addNewAddressModalRef [custObjectID]="custObjectID"></app-add-individual-address>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-12">
+        <app-heading></app-heading>
+        <app-breadcrumb></app-breadcrumb>
+        <div class="text-zero top-right-button-container">
+            <div>
+                <button id="button-basic" type="submit" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" title="Save">Submit Quote</button>
+            </div>
+        </div>
+        <div class="separator mb-4"></div>
+    </div>
+</div>
+<div class="row">
+    <ng-container *ngIf="dataSource; else loading">
+        <div class="col-12 mb-4 standard-table p-3">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <a class="c-pointer" class="text-decoration-none" routerLink="/app/supplierportal/rfqDetail/{{row.id}}">{{row.id}}</a></td>
+                </ng-container>
+                <ng-container matColumnDef="subdeadline">
+                    <th mat-header-cell *matHeaderCellDef> Sub Deadline
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.subDeadline}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.status}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>Description
+                    </th>
+                    <td mat-cell *matCellDef="let row">{{row.description}}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10,25,100]"></mat-paginator>
+        </div>
+    </ng-container>
+</div>
+<ng-template #loading>
+    <div class="loading"></div>
+</ng-template>

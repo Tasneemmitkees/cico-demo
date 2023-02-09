@@ -1,0 +1,236 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div>
+        <div class="text-zero top-right-button-container">
+            <div>
+                <button id="button-basic" type="submit" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" title="Save" (click)="onSubmit()">Save</button>
+                <button id="button-basic" type="button" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" routerLink="/app/customerportal/salesorder">Close</button>
+            </div>
+        </div>
+        <h1>Sales Order Detail</h1>
+        <app-breadcrumb></app-breadcrumb>
+        <a class="breadcrumb-item " routerLink="/app/customerportal/salesorder">Sales Order List</a>
+        <a class="breadcrumb-item active" aria-current="page">{{salesOrderId}}</a>
+    </div>
+    <ng-container *ngIf="rows; else loading">
+        <div class="row">
+            <div class="col-12">
+
+                <div>
+                    <tabset class="separator-tabs" *ngFor="let detail of rows">
+                        <tab heading="{{'General' |uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+
+                                            <div class="form-row">
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="id">Sales order Number</label>
+                                                    <input type="number" class="form-control round" id="id" value="{{detail.id}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="externalRefrence">External Refrence</label>
+                                                    <input type="text" class="form-control round" id="externalRefrence" value="{{detail.externalRefrence}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="notes">Notes</label>
+                                                    <input type="text" class="form-control round" id="notes" value="{{detail.notes}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="status">Status</label>
+                                                    <input type="text" class="form-control round" id="status" value="{{detail.status}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="requstedDate">Requsted Date</label>
+                                                    <input type="text" class="form-control round" id="requstedDate" value="{{detail.requstedDate}}" [disabled]="edit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <table class="basictable table-borderless d-flex justify-content-end">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="font-weight-bold">Gross Total :</td>
+                                                    <td class="text-right">{{detail.grossTotal}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Total Tax :</td>
+                                                    <td class="text-right">{{detail.totalTax}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Total Discount :</td>
+                                                    <td class="text-right">{{detail.totalDiscountAmount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Net Total :</td>
+                                                    <td class="text-right">{{detail.netTotal}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div>
+                    </div> -->
+                        </tab>
+                        <tab heading="{{'Customer Information' | uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="name">Customer Name</label>
+                                                    <input type="text" class="form-control round" id="name" value="{{detail.customer.name}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="address">Address</label>
+                                                    <input type="text" class="form-control round" id="address" value="{{detail.customer.address}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" class="form-control round" id="phone" value="{{detail.customer.phone}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" class="form-control round" id="email" value="{{detail.customer.email}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="contactname">Contact Name</label>
+                                                    <input type="text" class="form-control round" id="contactname" value="{{detail.customer.contact.name}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="contactphone">Contact Phone</label>
+                                                    <input type="text" class="form-control round" id="contactphone" value="{{detail.customer.contact.phone}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="contactemail">Contact Email</label>
+                                                    <input type="text" class="form-control round" id="contactemail" value="{{detail.customer.contact.email}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="currency">Currency</label>
+                                                    <input type="text" class="form-control round" id="currency" value="{{detail.customer.currency}}" [disabled]="edit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{'Items' |uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="col-12 mb-4 p-3">
+                                                <table class="table ">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Product Id</th>
+                                                            <th scope="col">Description</th>
+                                                            <th scope="col">Requested Quantity</th>
+                                                            <th scope="col">Unit Of Measurment</th>
+                                                            <th scope="col">List Price</th>
+                                                            <th scope="col">Currency</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr (click)="onSelect(item)" [class.selected]="item === Selected" *ngFor="let item of detail.items let rowIndex=index;">
+                                                            <td>{{item.id}}</td>
+                                                            <td>{{item.description}}</td>
+                                                            <td>{{item.requestedQuantity}}</td>
+                                                            <td>{{item.unitOfMeasurment}}</td>
+                                                            <td>{{item.listPrice}}</td>
+                                                            <td>{{item.currency}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="Selected">
+                                                    <h1 class="mb-4">More Details</h1>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="netValue">Net Value</label>
+                                                            <input type="text" class="form-control round" id="netValue" [value]="Selected.netValue" [disabled]="edit">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="confirmedQuantity">Confirmed Quantity</label>
+                                                            <input type="text" class="form-control round" id="confirmedQuantity" [value]="Selected.confirmedQuantity" [disabled]="edit">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="discountAmount">Discount Amount</label>
+                                                            <input type="text" class="form-control round" id="discountAmount" [value]="Selected.discountAmount" [disabled]="edit">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="discountRate">Discount Rate</label>
+                                                            <input type="text" class="form-control round" id="discountRate" [value]="Selected.discountRate" [disabled]="edit">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="netPrice">Net Price</label>
+                                                            <input type="text" class="form-control round" id="netPrice" [value]="Selected.netPrice" [disabled]="edit">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="notes">Notes</label>
+                                                            <input type="text" class="form-control round" id="notes" [value]="Selected.notes" [disabled]="edit">
+                                                        </div>
+                                                    </div>
+                                                    <table class="table p-5 ">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th scope="col">Tax Type</th>
+                                                                <th scope="col">Tax Rate</th>
+                                                                <th scope="col">Tax Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{{Selected.taxDetails.taxType}}</td>
+                                                                <td>{{Selected.taxDetails.taxRate}}</td>
+                                                                <td>{{Selected.taxDetails.taxAmount}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{'pages.attachment' | translate | uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table class="table table-borderless">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Title</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let attach of detail.attachment let rowIndex=index;">
+                                                        <td><input class="form-control round" value="{{attach.title}}" /></td>
+                                                        <td>
+                                                            <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm iconsminds-download" title="Download" (click)="showPdf(rowIndex)"></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #loading>
+        <div class="loading"></div>
+    </ng-template>
+</form>

@@ -1,0 +1,210 @@
+<div>
+    <div class="text-zero top-right-button-container">
+        <div>
+            <button id="button-save" type="submit" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" title="Save" (click)="onSubmit()">Save</button>
+            <button id="button-basic" type="button" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" routerLink="/app/customerportal/customerinvoice">Close</button>
+        </div>
+    </div>
+    <h1>Customer Invoice Detail</h1>
+    <app-breadcrumb></app-breadcrumb>
+    <a class="breadcrumb-item " routerLink="/app/customerportal/customerinvoice">Customer Invoice List</a>
+    <a class="breadcrumb-item active" aria-current="page">{{invoiceID}}</a>
+</div>
+<div class="row">
+    <div class="col-12">
+
+        <div>
+            <ng-container *ngIf="rows[0]; else loading">
+                <tabset class="separator-tabs" *ngFor="let item of rows">
+                    <tab heading="{{'General' |uppercase}}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+                                            <div class="form-row">
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="ID">Customer Invoice Number</label>
+                                                    <input type="number" class="form-control round" id="ID" [value]="item.ID" [disabled]="edit">
+                                                </div>
+
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="externalReference">External Reference</label>
+                                                    <input type="text" class="form-control round" id="externalReference" [disabled]="edit" [value]="item.externalReference">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="paymentMethod">Payment Method</label>
+                                                    <input type="text" class="form-control round" id="paymentMethod" [disabled]="edit" [value]="item.paymentMethod">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="paymentTerms">Payment Terms</label>
+                                                    <input type="text" class="form-control round" id="paymentTerms" [disabled]="edit" value="{{item.paymentTerms}}">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="dueDate">Due Date</label>
+                                                    <input type="text" class="form-control round" id="dueDate" [disabled]="edit" value="{{item.dueDate}}">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="notes">Notes</label>
+                                                    <input type="text" class="form-control round" id="notes" [disabled]="edit" value="{{item.notes}}">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <table class="basictable table-borderless d-flex justify-content-end">
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-weight-bold">Gross Total :</td>
+                                                <td class="text-right">{{item.grossTotal}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold">Total Tax :</td>
+                                                <td class="text-right">{{item.totalTax}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold">Total Discount :</td>
+                                                <td class="text-right">{{item.totalDiscount}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold">Net Total :</td>
+                                                <td class="text-right">{{item.netTotal}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="{{'Customer Information' | uppercase}}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-12 col-md-4 mb-4">
+                                                <label for="name">Customer Name</label>
+                                                <input type="text" class="form-control round" id="name" value="{{item.customer.name}}" [disabled]="edit">
+                                            </div>
+                                            <div class="form-group col-12 col-md-4 mb-4">
+                                                <label for="address">Address</label>
+                                                <input type="text" class="form-control round" id="address" value="{{item.customer.address}}" [disabled]="edit">
+                                            </div>
+
+                                            <div class="form-group col-12 col-md-4 mb-4 ">
+                                                <label for="currency">Currency</label>
+                                                <input type="text" class="form-control round" id="currency" value="{{item.customer.currency}}" [disabled]="edit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="{{'Items' |uppercase}}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="col-12 mb-4 p-3">
+                                            <table class="table">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Product ID</th>
+                                                        <th scope="col">Description</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Unit Of Measurment</th>
+                                                        <th scope="col">List Price</th>
+                                                        <th scope="col">Net Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr (click)="onSelect(data)" [class.selected]="data === Selected" *ngFor="let data of item.items let rowIndex=index;">
+                                                        <td>{{data.productID}}</td>
+                                                        <td>{{data.description}}</td>
+                                                        <td>{{data.quantity}}</td>
+                                                        <td>{{data.UOM}}</td>
+                                                        <td>{{data.listPrice}}</td>
+                                                        <td>{{data.netAmount}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div *ngIf="Selected">
+                                                <h1 class="mb-4">More Details</h1>
+                                                <div class="form-row">
+                                                    <!-- <div class="form-group col-md-4">
+                                                        <label for="UOM">Unit Of Measurment</label>
+                                                        <input type="text" class="form-control round" id="UOM" [value]="Selected.UOM" [disabled]="edit">
+                                                    </div> -->
+                                                    <div class="form-group col-md-4">
+                                                        <label for="discountAmount">Discount Amount</label>
+                                                        <input type="text" class="form-control round" id="discountAmount" [value]="Selected.discountAmount" [disabled]="edit">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="grossAmount">Gross Amount</label>
+                                                        <input type="text" class="form-control round" id="grossAmount" [value]="Selected.grossAmount" [disabled]="edit">
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-row">
+                                                </div> -->
+                                                <table class="table table-borderless p-5 ">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Tax Type</th>
+                                                            <th scope="col">Tax Rate</th>
+                                                            <th scope="col">Tax Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{Selected.taxDetails.type}}</td>
+                                                            <td>{{Selected.taxDetails.rate}}</td>
+                                                            <td>{{Selected.taxDetails.amount}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tab>
+                    <tab heading="{{'pages.attachment' | translate | uppercase}}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <table class="table table-borderless">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">Title</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let attach of item.attachements let rowIndex=index;">
+                                                    <td><input class="form-control round" value="{{attach.title}}" /></td>
+                                                    <td>
+                                                        <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm iconsminds-download" title="Download" (click)="showPdf()"></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    <div class="loading"></div>
+</ng-template>

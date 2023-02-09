@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-12">
+        <app-heading></app-heading>
+        <app-breadcrumb></app-breadcrumb>
+        <div class="separator mb-5"></div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+
+        <aw-wizard [navBarLayout]="'large-empty-symbols'">
+            <aw-wizard-step stepTitle="General" style="min-height: 230px;">
+                <ng-template awWizardStepSymbol><i class="simple-icon-user"></i></ng-template>
+                <div>
+                    <form [formGroup]="rfqForm" (ngSubmit)="onSubmit()">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" class="form-control round" formControlName="description">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="customerName">Customer Name</label>
+                                <input type="text" id="customerName" class="form-control round" disabled [value]="customerName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="externalReference">External Reference</label>
+                                <input type="text" class="form-control round" id="externalReference" formControlName="externalReference">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" awPreviousStep disabled>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                    <button type="button" class="btn btn-primary" awNextStep>{{ 'wizard.next' | translate }}</button>
+                </div>
+            </aw-wizard-step>
+            <aw-wizard-step stepTitle="Items" style="min-height: 230px;">
+                <ng-template awWizardStepSymbol><i class="simple-icon-basket"></i></ng-template>
+                <div>
+                    <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm" (click)="showAddNewModal()">Add Item</button>
+                </div>
+                <br>
+                <div>
+                    <form #form="ngForm">
+                        <div class="col-12 mb-4 table-responsive">
+                            <table class="table ">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"> ID</th>
+                                        <th scope="col">Product ID</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Unit Of Measurement</th>
+                                        <th scope="col">Delivery Date</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of itemList let rowIndex=index;">
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.productID}}</td>
+                                        <td>{{item.description}}</td>
+                                        <td style="width: 10%">
+                                            <input [value]="item.quantity" type="number" min="1" class="form-control round" name="quantity" #quantity (change)="updateQuantityValue($event, 'quantity', rowIndex)" />
+                                        </td>
+                                        <td>{{item.unitOfMeasurment}}</td>
+                                        <td style="width:20%"><input type="text" class="form-control round" name="deliveryDate" #deliveryDate="bsDatepicker" bsDatepicker [value]="item.deliveryDate" placeholder="Datepicker" (bsValueChange)="updateDeliveryDateValue($event,'deliveryDate',rowIndex)"
+                                                [container]="'html'" [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY'}" [minDate]="minDate">
+                                        </td>
+                                        <td>
+                                            <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="openDeleteModel(template)"></button>
+                                            <ng-template #template>
+                                                <div class="modal-body text-center">
+                                                    <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                                    <button type="button" class="btn btn-outline-primary" (click)="confirmRemoveItem(item.id)">{{'modal.yes' | translate}}</button> {{" "}}
+                                                    <button type="button" class="btn btn-primary" (click)="cancelDeleteItem()">{{'modal.no' | translate}}</button>
+                                                </div>
+                                            </ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                    <button type="button" class="btn btn-primary" awNextStep>{{ 'wizard.next' | translate }}</button>
+                </div>
+            </aw-wizard-step>
+            <aw-wizard-step stepTitle="Review" style="min-height: 230px;">
+                <ng-template awWizardStepSymbol><i class="simple-icon-check"></i></ng-template>
+                <div class="text-left">
+                    <div>
+                        <h6>General</h6>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control round" id="description" [value]="rfqForm.value.description" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class=" form-group col-md-4">
+                                <label for="customerName">Customer Name</label>
+                                <input class="form-control round" type="text" id="customerName" disabled>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="externalReference">External Reference</label>
+                                <input class=" form-control round" type="text" id="externalReference" [value]="rfqForm.value.externalReference" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <h6>Items</h6>
+                        <table class="table ">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col"> ID</th>
+                                    <th scope="col">Product ID</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit Of Measurement</th>
+                                    <th scope="col">Delivery Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of itemList let rowIndex=index;">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.productID}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.unitOfMeasurment}}</td>
+                                    <td>{{item.deliveryDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <div class="text-center complete-message-centered">
+                            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                            <button type="submit" class="btn btn-primary" awNextStep (click)="onSubmit()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </aw-wizard-step>
+        </aw-wizard>
+
+    </div>
+</div>
+<app-add-item-rfq (newItemEvent)="addId($event)" #addNewItemModalRef></app-add-item-rfq>
+<simple-notifications></simple-notifications>

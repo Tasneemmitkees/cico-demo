@@ -1,0 +1,63 @@
+<div class="card auth-card">
+    <div class="position-relative image-side ">
+        <p class="white mb-0">
+            <br>If you are a member, please
+            <a routerLink="/user/login" class="white white-underline-link">login</a>.
+        </p>
+    </div>
+    <div class="form-side">
+        <h6 class="mb-4">Register</h6>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <label class="form-group has-float-label">
+            <input class="form-control" type="number" formControlName="id"/>
+            <span>ID</span>
+          </label>
+            <label class="form-group has-float-label">
+            <input class="form-control" type="text" formControlName="userName"/>
+            <span>User Name</span>
+          </label>
+            <label class="form-group has-float-label">
+            <input class="form-control" type="password" formControlName="password"/>
+            <span>{{ 'user.password' | translate }}</span>
+          </label>
+            <label class="form-group has-float-label">
+            <ng-select id="role" formControlName="role" (change)="onRoleOptionsSelected(registerForm.value.role)">
+              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
+              <ng-option value="customer">Customer</ng-option>
+              <ng-option value="supplier">Supplier</ng-option>
+            </ng-select>
+            <span>Role</span>
+          </label>
+            <div class="form-group" *ngIf="isCustomerShown">
+                <label class="form-group has-float-label">
+            <ng-select formControlName="customerType" (change)="onTypeOptionsSelected(registerForm.value.customerType)">
+              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
+              <ng-option value="individual">Individual</ng-option>
+              <ng-option value="company">Company</ng-option>
+            </ng-select>
+            <span>Customer Type</span>
+          </label>
+            </div>
+            <div class="form-group" *ngIf="isCustomerShown">
+                <label class="form-group has-float-label">
+            <ng-select formControlName="businessPartnerID" (change)="onCustomerOptionsSelected(registerForm.value.businessPartnerID)">
+              <ng-option selected disabled>{{ 'input-groups.choose' | translate }}</ng-option>
+              <ng-option *ngFor="let customer of businessPartnerID; let i = index" [value]="customer.InternalID">
+                {{customer.PersonGivenName}} {{customer.PersonFamilyName}} {{customer.BusinessPartnerFormattedName}}
+              </ng-option>
+            </ng-select>
+            <span>Business Partner ID</span>
+          </label>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
+                <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState" [isDisabled]="buttonDisabled" click="onLoginClick()">
+                    {{ 'user.register-button' | translate | uppercase }}
+                </app-state-button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+<simple-notifications></simple-notifications>

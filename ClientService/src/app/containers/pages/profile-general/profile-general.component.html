@@ -1,0 +1,96 @@
+<ng-container *ngIf="generalData; else loading">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form [formGroup]="rootForm">
+                        <div formGroupName="generalIndividualFormGroup">
+                            <div class="form-row">
+                                <div class="form-group col-md-1">
+                                    <label for="customerid">{{ 'forms.customerid' | translate }}</label>
+                                    <input type="text" class="form-control round" formControlName="customerid" id="customerid">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="title">{{ 'forms.title' | translate }}</label>
+                                    <input type="text" class="form-control round" id="title" formControlName="title">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="firstname">{{ 'forms.firstname' | translate }}</label>
+                                    <input type="text" class="form-control round" id="firstname" formControlName="firstname">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="lastname">{{ 'forms.lastname' | translate }}</label>
+                                    <input type="text" class="form-control round" id="lastname" formControlName="lastname">
+                                </div>
+                            </div>
+                            <!-- <div class="form-row">
+
+
+                            </div> -->
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="gender">{{ 'forms.gender' | translate }}</label>
+                                    <input type="text" class="form-control round" id="gender" formControlName="gender">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="date">{{ 'forms.date' | translate }}</label>
+                                    <input type="text" class="form-control round" id="date" formControlName="dateofbirth">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="status">{{ 'forms.status' | translate }}</label>
+                                    <input type="text" class="form-control round" id="status" formControlName="status">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="age">{{ 'forms.age' | translate }}</label>
+                                    <input type="number" class="form-control round" id="age" formControlName="age">
+                                </div>
+                            </div>
+                            <!-- <div class="form-row">
+                            </div> -->
+                        </div>
+                        <br>
+                        <div>
+                            <div>
+                                <button type="button" id="button-basic" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block btn-sm" (click)="showAddNewModal()">Add Identification</button>
+                            </div>
+                            <br>
+                            <table class="table table-borderless">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">Number Type</th>
+                                        <th scope="col">Number</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="identificationNumbersFormArray">
+                                    <tr *ngFor="let item of identificationNumbersFormArray.controls let rowIndex=index;" [formGroupName]="rowIndex">
+                                        <td><input type="text" class="form-control round" id="country" [value]="item.country" formControlName="country"></td>
+                                        <td><input type="text" class="form-control round" id="numberType" [value]="item.numberType" formControlName="numberType"></td>
+                                        <td><input type="text" class="form-control round" id="numberID" [value]="item.numberID" formControlName="numberID"></td>
+                                        <td>
+                                            <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block btn-sm simple-icon-trash" title="Delete" (click)="onDeleteRow(template)"></button>
+                                            <ng-template #template>
+                                                <div class="modal-body text-center">
+                                                    <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                                    <button type="button" class="btn btn-outline-primary" (click)="confirm(rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                                    <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                                                </div>
+                                            </ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<app-add-individual-identification (newIdentification)="addIdentfication($event)" #addNewIdentificationModalRef [custObjectID]="objectID"></app-add-individual-identification>
+<ng-template #loading>
+    <div class="loading"></div>
+</ng-template>

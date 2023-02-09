@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-12">
+        <app-heading></app-heading>
+        <div class="text-zero top-right-button-container">
+            <div dropdown>
+                <button id="button-basic" dropdownToggle type="button" placement="bottom right" class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">Product Catalog <span
+                class="caret"></span>
+            </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" routerLink="/app/supplierportal/productCatalog/newProductCatalog">New </a></li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem">
+                        <a class="dropdown-item">
+                            <div class="custom-file">
+                                <label style=" cursor: pointer; " for="upload">Upload</label>
+                                <input style="display: none;" id="upload" type="file">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <app-breadcrumb></app-breadcrumb>
+        <div class="separator mb-4"></div>
+    </div>
+
+    <div class="col-12 mb-4 standard-table p-3">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element">
+                    <a class="c-pointer" class="text-decoration-none" routerLink="/app/supplierportal/productCatalogDetail/{{element.id}}">{{element.id}} </a>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="validFrom">
+                <th mat-header-cell *matHeaderCellDef> Valid From </th>
+                <td mat-cell *matCellDef="let element"> {{element.validFrom}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="validTo">
+                <th mat-header-cell *matHeaderCellDef> Valid To </th>
+                <td mat-cell *matCellDef="let element"> {{element.validTo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

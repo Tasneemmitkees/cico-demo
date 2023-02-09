@@ -1,0 +1,257 @@
+<div class="row">
+    <div class="col-12">
+        <div>
+            <form #form="ngForm" (ngSubmit)="confirm()">
+                <div class="text-zero top-right-button-container">
+                    <div>
+                        <button id="button-basic" type="button" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" title="Approve" (click)="openApproveModal(approveTemplate)">Approve</button>
+                        <button id="button-basic" type="button" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" (click)="openModal(template)">Reject</button>
+                        <button id="button-basic" type="button" placement="bottom right" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-lg" routerLink="/app/customerportal/salesquotations">Close</button>
+                        <ng-template #template>
+                            <div class="modal-header">
+                                <h4 class="modal-title pull-left">Reason For Rejection</h4>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <ng-select appearance="outline" #option="ngModel" ngModel name="reason" [searchable]="true">
+                                    <ng-option value="01">Delivery Too Late</ng-option>
+                                    <ng-option value="02">Quality Issues</ng-option>
+                                    <ng-option value="03">Too Expensive</ng-option>
+                                    <ng-option value="04">Copmetitor Cheaper</ng-option>
+                                    <ng-option value="05">Copmetitor Better Quality </ng-option>
+                                    <ng-option value="06">Customer To Receive Replacement</ng-option>
+                                    <ng-option value="07">Warranty</ng-option>
+                                    <ng-option value="08">Other Reason </ng-option>
+                                    <ng-option value="95">Canceled From Time Recording </ng-option>
+                                    <ng-option value="96">Canceled From Goods and Services Receipt </ng-option>
+                                    <ng-option value="97">Cancellation From Inbound Delivery </ng-option>
+                                    <ng-option value="98">Customer Cancellation By XI Message </ng-option>
+                                    <ng-option value="97">Cancellation By System (Obsolete) </ng-option>
+                                </ng-select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary text-center" (click)="confirm()">OK</button>
+                            </div>
+                        </ng-template>
+                        <ng-template #approveTemplate>
+                            <div class="modal-body text-center">
+                                <h6 class="modal-title mb-4">Are You Sure Want to Approve?</h6>
+                                <button type="button" class="btn btn-outline-primary" (click)="approve()">{{'modal.yes' | translate}}</button> {{" "}}
+                                <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </form>
+            <h1>Sales Quotation Detail</h1>
+            <app-breadcrumb></app-breadcrumb>
+            <a class="breadcrumb-item " routerLink="/app/customerportal/salesquotations">Sales Quotation List</a>
+            <a class="breadcrumb-item active" aria-current="page">{{salesQuotationId}}</a>
+            <div>
+                <ng-container *ngIf="rows; else loading">
+                    <tabset class="separator-tabs" *ngFor="let detail of rows">
+                        <tab heading="{{'General' |uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="quotationNumber">Quotation Number</label>
+                                                    <input type="number" class="form-control round" id="quotationNumber" value="{{detail.id}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="description">Description</label>
+                                                    <input type="text" class="form-control round" id="description" value="{{detail.discription}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="externalRefrence">External Refrence</label>
+                                                    <input type="text" class="form-control round" id="externalRefrence" value="{{detail.externalRefrence}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="validFrom">Valid From</label>
+                                                    <input type="text" class="form-control round" id="validFrom" value="{{detail.validFrom}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="validTo">Valid To</label>
+                                                    <input type="text" class="form-control round" id="validTo" value="{{detail.validTo}}" [disabled]="edit">
+                                                </div>
+                                                <!-- <div class="form-group col-12 col-md-6 mb-4">
+                                            <label for="chanceOfSuccess">Chance Of Success</label>
+                                            <input type="text" class="form-control round" id="chanceOfSuccess" value="{{detail.chanceOfSuccess}}">
+                                        </div>
+                                        <div class="form-group col-12 col-md-6 mb-4 ">
+                                            <label for="reasonOfRejection">Reason Of Rejection</label>
+                                            <input type="text" class="form-control round" id="reasonOfRejection" value="{{detail.reasonOfRejection}}">
+                                        </div> -->
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="notes">Notes</label>
+                                                    <input type="text" class="form-control round" id="notes" value="{{detail.notes}}" [disabled]="edit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <table class="basictable table-borderless d-flex justify-content-end">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="font-weight-bold">Gross Total :</td>
+                                                    <td class="text-right"> {{detail.grossTotal}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Total Tax :</td>
+                                                    <td class="text-right"> {{detail.totalTax}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Total Discount :</td>
+                                                    <td class="text-right">{{detail.totalDiscount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Net Total :</td>
+                                                    <td class="text-right"> {{detail.netTotal}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{'Customer Information' | uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="customerName">Customer Name</label>
+                                                    <input type="text" class="form-control round" id="customerName" value="{{detail.customer.name}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="address">Address</label>
+                                                    <input type="text" class="form-control round" id="address" value="{{detail.customer.address}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" class="form-control round" id="phone" value="{{detail.customer.phone}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" class="form-control round" id="email" value="{{detail.customer.email}}" [disabled]="edit">
+                                                </div>
+                                                <div class="form-group col-12 col-md-4 mb-4">
+                                                    <label for="currency">Currency</label>
+                                                    <input type="text" class="form-control round" id="currency" value="{{detail.customer.currency}}" [disabled]="edit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{'Items' |uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Product ID</th>
+                                                        <th scope="col">Description</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">List Price</th>
+                                                        <th scope="col">Net Value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr (click)="onSelect(item)" [class.selected]="item === Selected" *ngFor="let item of detail.items let rowIndex=index;">
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.description}}</td>
+                                                        <td>{{item.quantity}}</td>
+                                                        <td>{{item.listPrice}}</td>
+                                                        <td>{{item.netValue}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div *ngIf="Selected">
+                                                <h1 class="mb-4">More Details</h1>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="unitOfMeasurment">Unit Of Measurment</label>
+                                                        <input type="text" class="form-control round" id="unitOfMeasurment" [value]="Selected.unitOfMeasurment" [disabled]="edit">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="discountRate">Discount Rate</label>
+                                                        <input type="text" class="form-control round" id="discountRate" [value]="Selected.discountRate" [disabled]="edit">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="discountAmount">Discount Amount</label>
+                                                        <input type="text" class="form-control round" id="discountAmount" [value]="Selected.discountAmount" [disabled]="edit">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="netPrice">Net Price</label>
+                                                        <input type="text" class="form-control round" id="netPrice" [value]="Selected.netPrice" [disabled]="edit">
+                                                    </div>
+                                                </div>
+                                                <table class="table table-borderless p-5 ">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">Tax Type</th>
+                                                            <th scope="col">Tax Rate</th>
+                                                            <th scope="col">Tax Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{Selected.taxDetails.taxType}}</td>
+                                                            <td>{{Selected.taxDetails.taxRate}}</td>
+                                                            <td>{{Selected.taxDetails.taxAmount}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+                        <tab heading="{{'pages.attachment' | translate | uppercase}}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table class="table table-borderless">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Title</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let attachment of listOfAttachment">
+                                                        <td><input class="form-control round" value="{{attachment.title}}" /></td>
+                                                        <td>
+                                                            <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm iconsminds-download" title="Download" (click)="showPdf()"></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    <div class="loading"></div>
+</ng-template>

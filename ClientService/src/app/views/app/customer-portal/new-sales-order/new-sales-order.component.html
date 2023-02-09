@@ -1,0 +1,260 @@
+<div class="row">
+    <div class="col-12">
+        <app-heading></app-heading>
+        <app-breadcrumb></app-breadcrumb>
+        <div class="separator mb-5"></div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="newSalesOrder" (ngSubmit)="onSubmit()">
+            <aw-wizard [navBarLayout]="'large-empty-symbols'">
+                <aw-wizard-step stepId="1" stepTitle="Customer Information" style="min-height: 230px;">
+                    <ng-template awWizardStepSymbol><i class="iconsminds-id-card"></i></ng-template>
+
+                    <ng-container *ngIf="customer; else loading">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control round" id="description" formControlName="description">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="externalReference">External Reference</label>
+                                <input type="text" class="form-control round" id="externalReference" formControlName="externalReference">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="notes">Notes</label>
+                                <input type="text" class="form-control round" id="notes" formControlName="notes">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="name">Customer Name</label>
+                                <input type="text" class="form-control round" id="name" value="name" formControlName="name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control round" id="address" formControlName="address">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="currency">Currency</label>
+                            <input type="text" class="form-control round" id="currency" formControlName="currency">
+                        </div> -->
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" awPreviousStep disabled>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                            <button type="button" class="btn btn-primary" awNextStep>{{ 'wizard.next' | translate }}</button>
+                        </div>
+                    </ng-container>
+                </aw-wizard-step>
+                <aw-wizard-step stepTitle="Items" style="min-height: 230px;">
+                    <ng-template awWizardStepSymbol><i class="simple-icon-basket"></i></ng-template>
+                    <div class="card-header">
+                        <button id="button-basic" type="button" class="mb-1 btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm " (click)="showAddItemOrderModal()">Add Item</button>
+                    </div>
+                    <div>
+                        <form #form="ngForm" (ngSubmit)="onSubimt()">
+                            <div class="col-12 mb-4 table-responsive">
+                                <table class="table ">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Product ID</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Requested Quantity</th>
+                                            <th scope="col">Unit Of Measurment</th>
+                                            <th scope="col">List Price</th>
+                                            <th scope="col">Net value</th>
+                                            <th scope="col">Delivery Date</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr (click)="onSelect(item)" (click)="selectRow(item)" [class.selected]="item === Selected" *ngFor="let item of itemList let rowIndex=index;">
+                                            <td>{{item.productID}}</td>
+                                            <td>{{item.productDescription}}</td>
+                                            <td>
+                                                <input min="1" style="width: 50%;" [value]="item.requestedQuantity" type="number" class="form-control round" name="requestedQuantity" #requestedQuantity (change)="updateQuantityValue($event, 'requestedQuantity', rowIndex)" (change)="changeQty(item, rowIndex)"
+                                                />
+                                            </td>
+                                            <td>{{item.unitOfMeasurment}}</td>
+                                            <td>{{item.price}}</td>
+                                            <td>{{item.netPrice}}</td>
+                                            <td>
+                                                <input [value]="item.deliveryDate" type="text" class="form-control round" name="deliveryDate" bsDatepicker #deliveryDate="bsDatepicker" (bsValueChange)="updateDeliveryDateValue($event,'deliveryDate',rowIndex)" [container]="'html'" [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                    [minDate]="minDate">
+                                                <!-- <div *ngIf=" item.deliveryDate < minDate" class="tooltip-right-top text-danger">invalid date</div> -->
+                                            </td>
+                                            <td>
+                                                <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="onDeleteItemsRow(templateitem)"></button>
+                                                <ng-template #templateitem>
+                                                    <div class="modal-body text-center">
+                                                        <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                                        <button type="button" class="btn btn-outline-primary" (click)="deleteitem(rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                                        <button type="button" class="btn btn-primary" (click)="canceldelete()">{{'modal.no' | translate}}</button>
+                                                    </div>
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div *ngIf="Selected">
+                                    <h1 class="mb-4">Items Details</h1>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="netValue">Net Value</label>
+                                            <input class="form-control round" id="netValue">
+                                        </div>
+                                    </div>
+                                    <table class="table p-5 ">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Tax Type</th>
+                                                <th scope="col">Tax Rate</th>
+                                                <th scope="col">Tax Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> -->
+
+                            </div>
+                        </form>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                            <button type="button" class="btn btn-primary" awNextStep>{{ 'wizard.next' | translate }}</button>
+                        </div>
+                    </div>
+                </aw-wizard-step>
+                <aw-wizard-step stepTitle="Attachment" style="min-height: 230px;">
+                    <ng-template awWizardStepSymbol><i class="simple-icon-paper-clip"></i></ng-template>
+                    <div>
+                        <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm" (click)="showAddNewModal()">Add Attachment</button>
+                    </div>
+                    <br>
+                    <div class="col-12 mb-4">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="attachment">
+                                <tr *ngFor="let item of attachment.controls let rowIndex=index;" [formGroupName]="rowIndex">
+                                    <td><input type="text" class="form-control round" formControlName="title"></td>
+                                    <td>
+                                        <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm iconsminds-download" title="Download"></button>
+                                        <button id="button-basic" type="button" class="btn btn-outline-primary ml-2 d-none d-xl-inline-block  btn-sm simple-icon-trash" title="Delete" (click)="onDeleteAttachmentRow(template)"></button>
+                                        <ng-template #template>
+                                            <div class="modal-body text-center">
+                                                <h6 class="modal-title mb-4">Are You Sure Want to Delete?</h6>
+                                                <button type="button" class="btn btn-outline-primary" (click)="confirm(rowIndex)">{{'modal.yes' | translate}}</button> {{" "}}
+                                                <button type="button" class="btn btn-primary" (click)="decline()">{{'modal.no' | translate}}</button>
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                            <button type="button" class="btn btn-primary" awNextStep>Next</button>
+                        </div>
+                    </div>
+
+                </aw-wizard-step>
+                <aw-wizard-step stepTitle="{{ 'Review' | translate }}" style="min-height: 230px;">
+                    <ng-template awWizardStepSymbol><i class="simple-icon-check"></i></ng-template>
+                    <div class="text-left">
+                        <!-- <h2 class="mb-2">{{ 'wizard.content-thanks' | translate }}</h2>
+                        <p>Your Sales Order Completed Successfully</p> -->
+                        <div>
+                            <h6>Customer Information</h6>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="description">Description</label>
+                                    <input type="text" class="form-control round" id="description" [value]="newSalesOrder.value.description" [disabled]="edit" />
+                                </div>
+                                <div class=" form-group col-md-6">
+                                    <label for="name">Customer Name</label>
+                                    <input class="form-control round" type="text" id="name" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="address">Address</label>
+                                    <input class=" form-control round" type="text" id="address" formControlName="address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <h6>Items</h6>
+                            <table class="table ">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Product Number</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Requested Quantity</th>
+                                        <th scope="col">Unit Of Measurment</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Net Value</th>
+                                        <th scope="col">Delivery Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of itemList">
+                                        <td>{{item.productID}}</td>
+                                        <td>{{item.productDescription}}</td>
+                                        <td>{{item.requestedQuantity}}</td>
+                                        <td>{{item.unitOfMeasurment}}</td>
+                                        <td>{{item.price}}</td>
+                                        <td>{{item.netPrice}}</td>
+                                        <td>{{item.deliveryDate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <h6>Attachment</h6>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <!-- <th scope="col">Attachment Document</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let attach of attachment.value">
+                                        <td>{{attach.title}}</td>
+                                        <!-- <td class="custom-file">{{attach.attachmentDocument}}</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" awPreviousStep>{{ 'wizard.prev' | translate }}</button>{{" "}}
+                        <button type="submit" class="btn btn-primary" awNextStep>Submit</button>
+                    </div>
+                </aw-wizard-step>
+            </aw-wizard>
+        </form>
+    </div>
+</div>
+<app-add-sales-order-attachment (newAttachment)="addAttachment($event)" #addNewAttachmentModalRef></app-add-sales-order-attachment>
+<app-add-item-order #addNewItemModalRef (newItemOrder)="addId($event)"></app-add-item-order>
+<ng-template #loading>
+    <div class="loading"></div>
+</ng-template>
+<simple-notifications></simple-notifications>
