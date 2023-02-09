@@ -5945,18 +5945,18 @@ rating span {
     display: flex;
     flex-direction: row;
     @include depth(1);
-    .image-side {
-        width: 40%;
-        background: url("../../img/login/balloon.jpg") no-repeat center top;
-        background-size: cover;
-        padding: 80px 40px;
-        .h3 {
-            line-height: 0.8rem;
-        }
-    }
+    // .image-side {
+    //     width: 40%;
+    //     background: url("../../img/login/balloon.jpg") no-repeat center top;
+    //     background-size: cover;
+    //     padding: 80px 40px;
+    //     .h3 {
+    //         line-height: 0.8rem;
+    //     }
+    // }
     .form-side {
-        width: 60%;
-        padding: 80px;
+        width: 40%;
+        padding: 80px 40px;
     }
     @include respond-below(md) {
         flex-direction: column;

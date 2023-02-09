@@ -129,18 +129,22 @@ class SalesOrderController {
             await axios(config3)
               .then(function (response) {
                 console.log(response.data);
+                res.status(200).json("success");
               })
               .catch(function (error) {
                 console.log(error);
+                res.status(200).json("error");
               });
           })
           .catch(function (error1) {
             console.log( error1);
+            res.status(200).json("error");
             //return error1;
           });
       })
       .catch(function (error2) {
         console.log(error2);
+        res.status(200).json("error");
         //return error2;
       });
       ///////////////////////////////////////////////

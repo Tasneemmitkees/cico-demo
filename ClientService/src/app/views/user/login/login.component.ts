@@ -23,9 +23,7 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log("demo value",this.loginForm.value);
-      this.notifications.create(this.translate.instant('alert.success'),
-      this.translate.instant("Send Sucessfully"),
-      NotificationType.Success, { timeOut: 3000, showProgressBar: true });
+      
       // call func
 
       let event:any={
@@ -35,6 +33,19 @@ export class LoginComponent {
       }
     this.demoservice.postEvent(event).subscribe((i)=>{
       console.log(i)
+      if(i=="success")
+      {
+        this.notifications.create(this.translate.instant('alert.success'),
+        this.translate.instant("Send Sucessfully"),
+        NotificationType.Success, { timeOut: 3000, showProgressBar: true });
+      }
+      else if(i=="error")
+      {
+        this.notifications.create(this.translate.instant('alert.error'),
+        this.translate.instant('error'),
+        NotificationType.Error, { timeOut: 3000, showProgressBar: true });
+      }
+      
     })
 
     }
