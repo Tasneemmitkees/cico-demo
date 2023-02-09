@@ -1,5 +1,5 @@
-<div class="card " style="width: 800px;height: 600px;">
-    <div class=" position-relative card-body ">
+<div class="card auth-card" style="width: 800px;height: 600px;">
+    <div class=" position-relative card-body  form-side">
         <h6 class="mb-4">Check-in / Check-Out Form </h6>
 
         <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
@@ -24,11 +24,11 @@
       </label>
             <div class="mb-4 form-row p-4">
                 <div class="form-group col-md-6 custom-control custom-radio">
-                    <input type="radio" id="checkIn" value="checkIn" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <input type="radio" id="checkIn" value="P10" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
                     <label class="custom-control-label" for="checkIn">Check in</label>
                 </div>
                 <div class="form-group col-md-6 custom-control custom-radio">
-                    <input type="radio" id="checkOut" value="checkOut" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
+                    <input type="radio" id="checkOut" value="P20" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
                     <label class="custom-control-label" for="checkOut">Check Out</label>
                 </div>
                 <div *ngIf="!radio.valid && loginForm.submitted" class="invalid-tooltip">Radio is required!</div>
