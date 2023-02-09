@@ -4,19 +4,17 @@
 
         <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
             <label class="form-group has-float-label">
-        <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID" [(ngModel)]="employeeID" />
+        <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID"  />
         <span>Employee ID</span>
         <div *ngIf="!employeeID.valid && loginForm.submitted" class="invalid-tooltip">Employee ID is required!</div>
       </label>
             <label class="form-group has-float-label">
-        <input class="form-control" type="date" placeholder="" required ngModel #date="ngModel" name="date"
-          [(ngModel)]="date" />
+        <input class="form-control" type="date" placeholder="" required ngModel #date="ngModel" name="date" />
         <span>Date</span>
         <div *ngIf="!date.valid && loginForm.submitted" class="invalid-tooltip">Date is required!</div>
       </label>
             <label class="form-group has-float-label">
-        <input class="form-control" type="time" placeholder="" required ngModel #time="ngModel" name="time"
-          [(ngModel)]="time" />
+        <input class="form-control" type="time" placeholder="" required ngModel #time="ngModel" name="time" />
         <span>Time</span>
         <div *ngIf="!time.valid && loginForm.submitted" class="invalid-tooltip">Time is required!</div>
       </label>
