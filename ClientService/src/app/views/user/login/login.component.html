@@ -1,6 +1,6 @@
-<div class="card auth-card" style="width: 800px;height: 600px;">
+<div class="card auth-card" style="width: 600px;height: 600px;">
     <div class=" position-relative card-body  form-side">
-        <h6 class="mb-4">Check-in / Check-Out Form </h6>
+        <h6 class="mb-4">Clock In Simulator </h6>
 
         <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -17,12 +17,14 @@
         <div *ngIf="!date.valid && loginForm.submitted" class="invalid-tooltip">Date is required!</div>
       </label>
             </div>
-            <label class="form-group has-float-label">
+            <div class="form-group">
+                <label class="form-group has-float-label">
         <input class="form-control" type="time" placeholder="" required ngModel #time="ngModel" name="time"  />
         <span>Time</span>
         <div *ngIf="!time.valid && loginForm.submitted" class="invalid-tooltip">Time is required!</div>
       </label>
-            <div class="mb-4 form-row p-4">
+            </div>
+            <div class="mb-4 form-row p-4 tooltip-center-bottom">
                 <div class="form-group col-md-6 custom-control custom-radio">
                     <input type="radio" id="checkIn" value="P10" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
                     <label class="custom-control-label" for="checkIn">Check in</label>
@@ -31,7 +33,7 @@
                     <input type="radio" id="checkOut" value="P20" name="radio" ngModel #radio="ngModel" required class="custom-control-input">
                     <label class="custom-control-label" for="checkOut">Check Out</label>
                 </div>
-                <div *ngIf="!radio.valid && loginForm.submitted" class="invalid-tooltip">Radio is required!</div>
+                <div *ngIf="!radio.valid && loginForm.submitted">Radio is required!</div>
             </div>
 
             <div class="d-flex">
@@ -42,7 +44,7 @@
                 <!-- <label class="p-5">ff</label> -->
 
             </div>
-            <button class="btn btn-primary btn btn-success mb-2" type="submit">Send</button>
+            <button class="btn btn-primary btn btn-success mb-2" type="submit" style="background-color: navy;">Send</button>
         </form>
 
     </div>

@@ -52,7 +52,7 @@ Table of Contents
 
 /* 00.Variables and Imports */
 
-@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,600,700");
 $main-menu-item-height: 110px;
 $main-menu-width: 120px;
 $main-menu-width-lg: 110px;
@@ -119,7 +119,7 @@ html {
 }
 
 body {
-    font-family: "Nunito", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 0.8rem;
     font-weight: 400;
     color: $primary-color;
@@ -155,7 +155,7 @@ body.show {
 }
 
 .fixed-background {
-    background: url("../../img/login/balloon-lg.jpg") no-repeat center center fixed;
+    background: url("../../img/login/balloon-lg.png") no-repeat center center fixed;
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -509,7 +509,7 @@ a {
 p {
     font-size: 0.85rem;
     line-height: 1.3rem;
-    font-family: "Nunito", sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .text-large {
@@ -3646,7 +3646,7 @@ input:-webkit-autofill {
 
 .form-control:focus {
     background: $input-background;
-    color: $primary-color;
+    color: navy;
 }
 
 .bootstrap-tagsinput {
@@ -3743,7 +3743,7 @@ input:-webkit-autofill {
 }
 
 .custom-switch .custom-control-input:checked~.custom-control-label::after {
-    background-color: $foreground-color;
+    background-color: navy;
 }
 
 .custom-control-label::after,
@@ -4012,7 +4012,7 @@ div.error:not(.simple-notification) {
     font-size: 0.76rem;
     color: $primary-color;
     background: $foreground-color;
-    border: 1px solid $theme-color-1;
+    border: 1px solid navy;
     text-align: center;
     width: unset !important;
     position: absolute;
@@ -6272,7 +6272,7 @@ rating span {
 }
 
 .context-menu-item span {
-    font-family: "Nunito", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 0.8rem;
     font-weight: 400;
     margin-left: 0.5rem;
@@ -8815,7 +8815,7 @@ footer.page-footer {
             .nav-item>a,
             .nav-item>.dropdown>a {
                 color: $button-text-color;
-                font-family: Nunito, sans-serif;
+                font-family: Montserrat, sans-serif;
                 font-size: 1rem;
                 display: inline-block;
                 margin-top: 0;
