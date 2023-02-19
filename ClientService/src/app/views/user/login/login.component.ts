@@ -23,7 +23,7 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log("demo value",this.loginForm.value);
-      
+
       // call func
 
       let event:any={
@@ -45,7 +45,7 @@ export class LoginComponent {
         this.translate.instant('error'),
         NotificationType.Error, { timeOut: 3000, showProgressBar: true });
       }
-      
+
     })
 
     }
