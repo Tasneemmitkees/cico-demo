@@ -3730,6 +3730,7 @@ input:-webkit-autofill {
     border: 1px solid $theme-color-1 !important;
 }
 
+//when radio is checked
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before,
 .custom-radio .custom-control-input:checked~.custom-control-label::before {
     background-color: $theme-color-1;
@@ -3743,7 +3744,7 @@ input:-webkit-autofill {
 }
 
 .custom-switch .custom-control-input:checked~.custom-control-label::after {
-    background-color: navy;
+    background-color: #121b43;
 }
 
 .custom-control-label::after,
@@ -4411,9 +4412,10 @@ div.error:not(.simple-notification) {
     color: $primary-color;
 }
 
+///when select option from ng select
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
-    background-color: $theme-color-1;
+    background-color: #121b43;
     color: $button-text-color;
 }
 
@@ -4540,8 +4542,9 @@ div.error:not(.simple-notification) {
     background-color: $foreground-color;
 }
 
+// when hover in ng select
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
-    background-color: $theme-color-1;
+    background-color: #121b43;
     color: $button-text-color;
 }
 

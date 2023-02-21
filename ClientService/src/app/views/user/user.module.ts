@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ComponentsStateButtonModule } from '../../components/state-button/components.state-button.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, UserComponent, ResetPasswordComponent],
@@ -19,7 +20,8 @@ import { ComponentsStateButtonModule } from '../../components/state-button/compo
     FormsModule,
     SharedModule,
     SimpleNotificationsModule.forRoot(),
-    ComponentsStateButtonModule
+    ComponentsStateButtonModule,
+    NgSelectModule
   ]
 })
 export class UserModule { }
