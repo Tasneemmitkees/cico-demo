@@ -30,6 +30,7 @@ export class LoginComponent {
         employeeID:this.loginForm.value.employeeID,
         dateTime:`${this.loginForm.value.date}T${this.loginForm.value.time}:21+02:00`,
         status:this.loginForm.value.radio,
+        terminalID:this.loginForm.value.terminalID,
       }
     this.demoservice.postEvent(event).subscribe((i)=>{
       console.log(i)

@@ -77,7 +77,7 @@ class SalesOrderController {
     
   // }
   async addSalesOrderWithRef(req: any, res: any): Promise<void> {
-    const { employeeID, dateTime, status } = req.body;
+    const { employeeID, dateTime, status,terminalID} = req.body;
     console.log(req.body)
     //res.status(200).json(req.body);
     //let employeeID="100127"
@@ -120,7 +120,7 @@ class SalesOrderController {
                 {
                   "id": "2",
                   "assignmentId": employeeID,
-                  "terminalId": "T1",
+                  "terminalId":terminalID,
                   "typeCode": status,
                   "timestamp": dateTime
                 }
