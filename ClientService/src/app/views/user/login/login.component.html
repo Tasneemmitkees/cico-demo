@@ -27,8 +27,9 @@
             <div class="form-group error-l-75">
                 <label>Terminal ID</label>
                 <ng-select appearance="outline" #terminalID="ngModel" name="terminalID" labelForId="terminalID" [searchable]="false" required ngModel>
-                    <ng-option value="t1">T1</ng-option>
-                    <ng-option value="t2">T2</ng-option>
+                    <ng-option value="warehouse">Warehouse</ng-option>
+                    <ng-option value="productionPlanet">Production Planet</ng-option>
+                    <ng-option value="headOffice">Head Office</ng-option>
                 </ng-select>
                 <div *ngIf="!terminalID.valid && loginForm.submitted" class="invalid-tooltip">Terminal ID is required!</div>
             </div>
