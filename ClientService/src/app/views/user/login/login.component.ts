@@ -48,7 +48,7 @@ export class LoginComponent {
   }
 
   send(): void {
-    this.pushClicked=false;
+   // this.pushClicked=false;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
 
@@ -77,7 +77,7 @@ export class LoginComponent {
     }
   }
   push(): void {
-    this.pushClicked=true;
+   // this.pushClicked=true;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
       let event: IClock = {
@@ -140,7 +140,8 @@ export class LoginComponent {
         x.times.sort(function (a, b) {
           return b.time.localeCompare(a.time)
         });
-        let highest=x.times[0];
+        console.log("time arr",x.times);
+        let highest:any=x.times[0];
         console.log("highest",highest);
         let event: IEmployee = {
           id:2,
@@ -152,19 +153,20 @@ export class LoginComponent {
         this.employeeList.push(event);
         console.log("employee list ",this.employeeList);
       }
-      this.demoservice.postEvent(this.employeeList).subscribe((i) => {
-        console.log(i)
-        if (i == "success") {
-          this.notifications.create(this.translate.instant('alert.success'),
-            this.translate.instant("Send Sucessfully"),
-            NotificationType.Success, { timeOut: 3000, showProgressBar: true });
-        }
-        else if (i == "error") {
-          this.notifications.create(this.translate.instant('alert.error'),
-            this.translate.instant('error'),
-            NotificationType.Error, { timeOut: 3000, showProgressBar: true });
-        }
-      });
+      
+    });
+    this.demoservice.postEvent(this.employeeList).subscribe((i) => {
+      console.log(i)
+      if (i == "success") {
+        this.notifications.create(this.translate.instant('alert.success'),
+          this.translate.instant("Send Sucessfully"),
+          NotificationType.Success, { timeOut: 3000, showProgressBar: true });
+      }
+      else if (i == "error") {
+        this.notifications.create(this.translate.instant('alert.error'),
+          this.translate.instant('error'),
+          NotificationType.Error, { timeOut: 3000, showProgressBar: true });
+      }
     });
   }
 

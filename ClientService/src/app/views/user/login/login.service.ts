@@ -13,6 +13,7 @@ postEvent(event:any): Observable<any> {
       'Content-Type': 'application/json',
     }),
   };
+  console.log("event",event)
   return this.http.post<any>(
     'http://localhost:8003/api/v1/SalesOrder',event,httpOptions
   );
