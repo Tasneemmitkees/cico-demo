@@ -152,6 +152,19 @@ export class LoginComponent {
         this.employeeList.push(event);
         console.log("employee list ",this.employeeList);
       }
+      this.demoservice.postEvent(this.employeeList).subscribe((i) => {
+        console.log(i)
+        if (i == "success") {
+          this.notifications.create(this.translate.instant('alert.success'),
+            this.translate.instant("Send Sucessfully"),
+            NotificationType.Success, { timeOut: 3000, showProgressBar: true });
+        }
+        else if (i == "error") {
+          this.notifications.create(this.translate.instant('alert.error'),
+            this.translate.instant('error'),
+            NotificationType.Error, { timeOut: 3000, showProgressBar: true });
+        }
+      });
     });
   }
 
