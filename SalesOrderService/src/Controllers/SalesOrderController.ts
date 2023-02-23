@@ -77,8 +77,9 @@ class SalesOrderController {
     
   // }
   async addSalesOrderWithRef(req: any, res: any): Promise<void> {
-    const events = req.body;
+    let events = req.body;
     console.log(req.body)
+    console.log(events)
     //res.status(200).json(req.body);
     //let employeeID="100127"
     //let status="P10"
@@ -116,7 +117,7 @@ class SalesOrderController {
                 'Accept': 'application/json', 
                 'Authorization': 'Bearer '+ response2.data.access_token
               },
-              data: JSON.stringify(events)
+              data: events//JSON.stringify(events)
               // data: JSON.stringify([
               //   {
               //     "id": "2",
