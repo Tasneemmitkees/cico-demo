@@ -5,10 +5,10 @@
             <div class=" position-relative card-body  form-side">
                 <h6 class="mb-4">Clock In Simulator </h6>
 
-                <form #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+                <form #loginForm="ngForm" novalidate (ngSubmit)="send()">
                     <div class="form-group">
                         <label class="has-float-label">
-            <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID"  />
+            <input class="form-control" type="text" required  ngModel #employeeID="ngModel" name="employeeID"  />
             <span>Employee ID</span>
             <div *ngIf="!employeeID.valid && loginForm.submitted" class="invalid-tooltip">Employee ID is required!</div>
           </label>
@@ -47,7 +47,7 @@
                         </div>
                         <div *ngIf="!radio.valid && loginForm.submitted">Radio is required!</div>
                     </div>
-                    <button class="btn btn-primary btn btn-success mb-2" type="submit" style="background-color: #121b43;" (click)="push()">Push</button>{{" "}}
+                    <button class="btn btn-primary btn btn-success mb-2" type="button" style="background-color: #121b43;" (click)="push()">Push</button>{{" "}}
                     <button class="btn btn-primary btn btn-success mb-2" type="submit" style="background-color: #121b43;" (click)="send()">Send</button>
 
                 </form>
