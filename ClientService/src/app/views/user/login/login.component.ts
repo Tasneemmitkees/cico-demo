@@ -37,6 +37,7 @@ export class LoginComponent {
   listOfOneEmployee: IEmployee[] = [];
   employeeList:IEmployee[]=[];
   pushClicked = false;
+  counter=1;
   constructor(private demoservice: LoginService, private notifications: NotificationsService, private translate: TranslateService) { }
 
   onSubmit():void{
@@ -75,6 +76,7 @@ export class LoginComponent {
         }
       });
     }
+    this.listOfOneEmployee=[];
   }
   push(): void {
   // // this.pushClicked=true;
@@ -89,7 +91,15 @@ export class LoginComponent {
         time: this.loginForm.value.time
       }
       this.list.push(event);
+      this.notifications.create(this.translate.instant('alert.info'),
+      this.translate.instant("pushed"),
+      NotificationType.Success, { timeOut: 3000, showProgressBar: true });
       console.log("list of data", this.list);
+    }
+    else{
+      this.notifications.create(this.translate.instant('alert.error'),
+      this.translate.instant('all fields required'),
+      NotificationType.Error, { timeOut: 3000, showProgressBar: true });
     }
   }
   sendList(): void {
@@ -127,13 +137,14 @@ export class LoginComponent {
         let lowest = x.times[0];
         console.log("lowest  of P10", lowest);
         let event: IEmployee = {
-          id:"2",
+          id:this.counter.toString(),
           assignmentId:x.employeeID,
           terminalId:x.terminalID,
           typeCode:x.status,
           timestamp:x.times[0].dateTime
         }
         this.employeeList.push(event);
+        this.counter++;
         console.log("employee list ",this.employeeList);
       }
       else if(x.status === "P20")
@@ -145,13 +156,14 @@ export class LoginComponent {
         let highest:any=x.times[0];
         console.log("highest",highest);
         let event: IEmployee = {
-          id:"2",
+          id:this.counter.toString(),
           assignmentId:x.employeeID,
           terminalId:x.terminalID,
           typeCode:x.status,
           timestamp:x.times[0].dateTime
         }
         this.employeeList.push(event);
+        this.counter++;
         console.log("employee list ",this.employeeList);
       }
       
@@ -169,7 +181,9 @@ export class LoginComponent {
           NotificationType.Error, { timeOut: 3000, showProgressBar: true });
       }
     });
+    this.employeeList=[];
   }
+  
 
 }
 
