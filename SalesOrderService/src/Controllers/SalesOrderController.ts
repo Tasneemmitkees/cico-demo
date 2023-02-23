@@ -77,7 +77,7 @@ class SalesOrderController {
     
   // }
   async addSalesOrderWithRef(req: any, res: any): Promise<void> {
-    const { employeeID, dateTime, status,terminalID} = req.body;
+    const events = req.body;
     console.log(req.body)
     //res.status(200).json(req.body);
     //let employeeID="100127"
@@ -116,15 +116,16 @@ class SalesOrderController {
                 'Accept': 'application/json', 
                 'Authorization': 'Bearer '+ response2.data.access_token
               },
-              data: JSON.stringify([
-                {
-                  "id": "2",
-                  "assignmentId": employeeID,
-                  "terminalId":terminalID,
-                  "typeCode": status,
-                  "timestamp": dateTime
-                }
-              ])
+              data: JSON.stringify(events)
+              // data: JSON.stringify([
+              //   {
+              //     "id": "2",
+              //     "assignmentId": employeeID,
+              //     "terminalId":terminalID,
+              //     "typeCode": status,
+              //     "timestamp": dateTime
+              //   }
+              // ])
             };
             await axios(config3)
               .then(function (response) {
