@@ -36,10 +36,19 @@ export class LoginComponent {
   sending: any[];
   listOfOneEmployee: IEmployee[] = [];
   employeeList:IEmployee[]=[];
+  pushClicked = false;
   constructor(private demoservice: LoginService, private notifications: NotificationsService, private translate: TranslateService) { }
 
+  onSubmit():void{
+    if(this.pushClicked){
+      console.log("push")
+    }else{
+      console.log("send");
+    }
+  }
 
-  onSubmit(): void {
+  send(): void {
+    this.pushClicked=false;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
 
@@ -68,6 +77,7 @@ export class LoginComponent {
     }
   }
   push(): void {
+    this.pushClicked=true;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
       let event: IClock = {
