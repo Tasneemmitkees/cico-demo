@@ -34,6 +34,7 @@ export class LoginComponent {
   list: IClock[] = [];
   finalList: IClock[] = [];
   sending: any[];
+  listOfOneEmployee: IEmployee[] = [];
   employeeList:IEmployee[]=[];
   constructor(private demoservice: LoginService, private notifications: NotificationsService, private translate: TranslateService) { }
 
@@ -43,14 +44,14 @@ export class LoginComponent {
       console.log("demo value", this.loginForm.value);
 
       // call func
-      let event: IClock = {
-        employeeID: this.loginForm.value.employeeID,
-        dateTime: `${this.loginForm.value.date}T${this.loginForm.value.time}:21+02:00`,
-        status: this.loginForm.value.radio,
-        terminalID: this.loginForm.value.terminalID,
-        date: this.loginForm.value.date,
-        time: this.loginForm.value.time
+      let event: IEmployee = {
+        id:2,
+        assignmentId: this.loginForm.value.employeeID,
+        timestamp: `${this.loginForm.value.date}T${this.loginForm.value.time}:21+02:00`,
+        typeCode: this.loginForm.value.radio,
+        terminalId: this.loginForm.value.terminalID,
       }
+      this.listOfOneEmployee.push(event);
       this.demoservice.postEvent(event).subscribe((i) => {
         console.log(i)
         if (i == "success") {
