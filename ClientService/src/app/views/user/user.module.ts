@@ -11,7 +11,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ComponentsStateButtonModule } from '../../components/state-button/components.state-button.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, UserComponent, ResetPasswordComponent],
   imports: [
@@ -21,7 +21,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     SimpleNotificationsModule.forRoot(),
     ComponentsStateButtonModule,
-    NgSelectModule
+    NgSelectModule,
+    TabsModule.forRoot()
   ]
 })
 export class UserModule { }
