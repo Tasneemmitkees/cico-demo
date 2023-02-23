@@ -17,7 +17,7 @@ export interface IClock {
   time: string;
 }
 export interface IEmployee {
-  id:number;
+  id:string;
   assignmentId: string;
   timestamp: string;
   terminalId: string;
@@ -48,13 +48,13 @@ export class LoginComponent {
   }
 
   send(): void {
-   // this.pushClicked=false;
+   //// this.pushClicked=false;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
 
       // call func
       let event: IEmployee = {
-        id:2,
+        id:"2",
         assignmentId: this.loginForm.value.employeeID,
         timestamp: `${this.loginForm.value.date}T${this.loginForm.value.time}:21+02:00`,
         typeCode: this.loginForm.value.radio,
@@ -77,7 +77,7 @@ export class LoginComponent {
     }
   }
   push(): void {
-   // this.pushClicked=true;
+  // // this.pushClicked=true;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
       let event: IClock = {
@@ -94,6 +94,7 @@ export class LoginComponent {
   }
   sendList(): void {
     this.finalList = this.list;
+    this.list=[];
     console.log("table list", this.finalList);
     const group = this.finalList.reduce((res: any, entry: any) => {
       const { date,
@@ -126,7 +127,7 @@ export class LoginComponent {
         let lowest = x.times[0];
         console.log("lowest  of P10", lowest);
         let event: IEmployee = {
-          id:2,
+          id:"2",
           assignmentId:x.employeeID,
           terminalId:x.terminalID,
           typeCode:x.status,
@@ -144,7 +145,7 @@ export class LoginComponent {
         let highest:any=x.times[0];
         console.log("highest",highest);
         let event: IEmployee = {
-          id:2,
+          id:"2",
           assignmentId:x.employeeID,
           terminalId:x.terminalID,
           typeCode:x.status,

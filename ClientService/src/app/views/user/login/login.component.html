@@ -8,7 +8,7 @@
                 <form #loginForm="ngForm" novalidate (ngSubmit)="send()">
                     <div class="form-group">
                         <label class="has-float-label">
-            <input class="form-control" type="number" required  ngModel #employeeID="ngModel" name="employeeID"  />
+            <input class="form-control" type="text" required  ngModel #employeeID="ngModel" name="employeeID"  />
             <span>Employee ID</span>
             <div *ngIf="!employeeID.valid && loginForm.submitted" class="invalid-tooltip">Employee ID is required!</div>
           </label>
