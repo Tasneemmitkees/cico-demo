@@ -52,7 +52,7 @@ export class LoginComponent {
    //// this.pushClicked=false;
     if (this.loginForm.valid) {
       console.log("demo value", this.loginForm.value);
-
+      this.listOfOneEmployee=[];
       // call func
       let event: IEmployee = {
         id:"2",
@@ -62,7 +62,7 @@ export class LoginComponent {
         terminalId: this.loginForm.value.terminalID,
       }
       this.listOfOneEmployee.push(event);
-      this.demoservice.postEvent(event).subscribe((i) => {
+      this.demoservice.postEvent(this.listOfOneEmployee).subscribe((i) => {
         console.log(i)
         if (i == "success") {
           this.notifications.create(this.translate.instant('alert.success'),
@@ -76,7 +76,7 @@ export class LoginComponent {
         }
       });
     }
-    this.listOfOneEmployee=[];
+    
   }
   push(): void {
   // // this.pushClicked=true;
